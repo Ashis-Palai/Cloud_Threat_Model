@@ -447,3 +447,38 @@ The Lambda function orchestrating the RAG workflow often has elevated IAM privil
 - Periodically audit roles with tools like [Prowler](https://github.com/prowler-cloud/prowler) or AWS Inspector
 
 ---
+
+---
+
+## 🧪 Stage 5: Vulnerability and Weakness Analysis
+
+This stage focuses on identifying and correlating technical vulnerabilities and design weaknesses that could be exploited by the previously defined threats. It bridges the gap between threat scenarios and the actual risk posture by:
+
+- Mapping known vulnerabilities to critical assets (data, components, infrastructure),
+- Using established security taxonomies such as CWE (Common Weakness Enumeration),
+- Providing the foundation for threat exploitation modeling using threat trees and use/abuse cases in the next sub-stages.
+
+The goal is to translate architectural and threat insights into tangible risk drivers, categorized, quantified, and actionable for both engineering and governance teams.
+
+---
+
+### 🔍 5.1 Correlating Vulnerabilities to Application Assets
+
+Below is a mapping of key application assets (identified in Stage 3 decomposition) to their most relevant technical vulnerabilities based on known cloud-native application flaws, software weaknesses, and architectural posture.
+
+| **Asset / Component**         | **Vulnerability Description**                                        | **Relevant CWE** | **Impact Summary**                                                                 |
+|------------------------------|------------------------------------------------------------------------|------------------|-------------------------------------------------------------------------------------|
+| Lambda (Orchestrator)        | Overly broad IAM role permissions                                      | CWE-284          | Unauthorized access or escalation to other services within AWS environment         |
+| Amazon S3 (Document Source)  | Lack of input validation / file sanitization                          | CWE-20           | Poisoned input can compromise embedding pipeline or bypass downstream logic        |
+| OpenSearch (Vector DB)       | Insecure or exposed ingestion APIs                                    | CWE-306          | Unauthorized users could inject malicious vector content into the index            |
+| DynamoDB                     | Session/token storage lacks authorization enforcement                 | CWE-862          | Unauthorized users may access or modify session data                               |
+| API Gateway                  | Insufficient request validation or input size limits                  | CWE-400          | May lead to DoS via oversized or malformed payloads                                |
+| Bedrock (Claude 3)           | Lack of inference response validation or integrity checks             | CWE-345          | Responses could be spoofed or manipulated in-transit without verification          |
+| Titan Embedding Process      | No boundary enforcement on input from S3                              | CWE-915          | Enables indirect command injection or prompt pollution through embeddings          |
+| ECS Fargate                  | Excessive logging of user inputs / credentials                        | CWE-532          | Potential for sensitive information exposure in logs                               |
+| Streamlit UI                 | Lack of context-aware input sanitization                              | CWE-79           | Input may lead to downstream injection into prompts or query parameters            |
+
+These vulnerabilities represent real-world misconfigurations and design flaws observed in AI-integrated cloud architectures, especially those utilizing orchestration and embedding workflows. As the threat landscape continues to evolve around LLMs and AI APIs, it is essential that security posture evaluations remain continuous and control coverage remains adaptive.
+
+
+
