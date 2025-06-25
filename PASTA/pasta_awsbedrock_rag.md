@@ -189,13 +189,6 @@ Generated from a Python-based threat model, this DFD maps data flows, Lambda orc
 ![PyTM DFD](/PyTM/images/dfd.png)
 
 
-#### ▶️ PyTM-Based Sequence to Sequence flow diagram
-
-
-![PyTM DFD](/PyTM/images/seq.png)
-
-
-
 
 ---
 
