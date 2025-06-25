@@ -150,3 +150,71 @@ All services are deployed through **Infrastructure as Code** using tools like **
 ---
 
 This completes the technical scope definition for the system. Next, we move into identifying threat agents and potential attack vectors in Stage 3.
+
+## 🧩 PASTA Stage 3: Decompose the Application
+
+This stage focuses on breaking down the RAG chatbot application into use cases, data flows, and security-functional boundaries to enable detailed threat enumeration in later stages.
+
+---
+
+### 3.1 Use Case Enumeration
+
+The primary use cases for the AWS Bedrock RAG chatbot include:
+
+- **Chat Interaction**: Users input natural language questions via the Streamlit UI.
+- **Query Handling**: ECS backend forwards input to the Lambda orchestrator.
+- **Context Enrichment**:
+  - Lambda fetches session history from DynamoDB.
+  - It queries OpenSearch for relevant embedded content.
+  - If required, it generates embeddings via Titan from documents stored in S3.
+- **Prompt Construction & LLM Execution**: Enriched prompt is sent to Claude 3 via AWS Bedrock; response returned.
+- **Response Delivery**: Lambda updates session history and sends final output to Streamlit via ECS.
+
+---
+
+### 3.2 Data Flow Diagrams
+
+To visualize the system components, communication paths, and trust boundaries, we refer to both manual and automated DFDs:
+
+#### ▶️ Threat Dragon-Based DFD
+
+This diagram, created via OWASP Threat Dragon, maps system entities and their STRIDE-based threat categories:
+
+![Threat Dragon DFD](/threat-dragon/images/DFD_ThreatDragon_Bedrock_Chatbot.png)
+
+#### ▶️ PyTM-Based DFD
+
+Generated from a Python-based threat model, this DFD maps data flows, Lambda orchestration, AWS-managed service boundaries, and embedding logic:
+
+![PyTM DFD](/PyTM/images/dfd.png)
+
+
+#### ▶️ PyTM-Based Sequence to Sequence flow diagram
+
+
+![PyTM DFD](/PyTM/images/seq.png)
+
+
+
+
+---
+
+### 3.3 Security Functional Analysis and Trust Boundaries
+
+**Defined Trust Boundaries:**
+
+- **Internet Boundary**: Initial untrusted zone where users initiate interaction.
+- **Customer VPC Boundary**: Secure zone where ECS, API Gateway, Lambda, DynamoDB, and S3 (private) operate under strict IAM controls.
+- **AWS Managed Services Boundary**: Operated by AWS; includes Bedrock, Titan Embeddings, and OpenSearch (vector DB).
+
+**Security Functional Observations:**
+
+- Lambda operates across multiple trust boundaries and holds central access to sensitive systems. It requires strict runtime integrity, IAM role separation, and telemetry.
+- Data entering the system passes through multiple stages: ECS > API Gateway > Lambda > vector enrichment > LLM. Each stage is a potential threat insertion point if not validated or encrypted.
+- Documents stored in S3 act as upstream knowledge sources and must be immutable and verified before embedding.
+- Embedding and search infrastructure (Titan + OpenSearch) is AWS-managed but interacts bidirectionally with Lambda, requiring encryption in-transit, fine-grained policy control, and embedding tamper detection.
+- All ingress and egress paths are TLS-enforced. Logging and audit trails must span across boundaries to support full forensic visibility.
+
+---
+
+The decomposition phase provides the architectural clarity needed to map specific threats, attacker motivations, and technical weaknesses in subsequent PASTA stages.
