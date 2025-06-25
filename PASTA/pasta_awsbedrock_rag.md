@@ -14,6 +14,12 @@ PASTA enables not just vulnerability identification, but a **risk-oriented narra
 - Orchestrators (Lambda) hold central control logic that needs careful review.
 
 Each of the upcoming sections will dive into a stage of the PASTA model with relevance to our architecture.
+### 🗺️ Architecture Overview
+
+The architectural diagram below illustrates the high-level structure of the AWS Bedrock RAG chatbot system, including boundaries, components, and data flows across Lambda, Bedrock (Claude 3), Titan, S3, OpenSearch, and user-facing services:
+
+![Architecture Diagram](./architecture/bedrock_chatbot_architecture.PNG)
+
 
 ---
 
