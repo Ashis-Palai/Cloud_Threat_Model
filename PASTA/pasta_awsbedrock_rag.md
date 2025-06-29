@@ -726,7 +726,7 @@ This structured threat tree illustrates how **each misconfiguration or CVE can b
 
 #### 📌 Threat Tree – Amazon S3
 
-![Threat Tree – Amazon S3](/PASTA/images/threat_tree_s3_enhanced.png)
+![Threat Tree – Amazon S3](/PASTA/images/threat_tree_s3_enhanced.png.png)
 
 ---
 
