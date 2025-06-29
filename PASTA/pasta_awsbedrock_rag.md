@@ -882,3 +882,72 @@ Operational weaknesses reduce resilience:
 
 ---
 
+
+---
+
+#### 📌 Threat Tree – Amazon DynamoDB
+
+![Threat Tree – Amazon DynamoDB](/PASTA/images/threat_tree_dynamodb_enhanced_LR.png)
+
+---
+
+#### 🔍 Threat Tree Explanation – Amazon DynamoDB
+
+The **root node** represents the high-level threat scenario:  
+**“Compromise or Data Loss in DynamoDB”**
+
+This branches into multiple **threat categories**, each tied to relevant vulnerabilities and misconfigurations (referenced by their serial numbers from Stage 5.1):
+
+---
+
+##### 🔐 1. Encryption Weakness  
+> **Goal**: Exploit weak or missing encryption to access sensitive data stored in DynamoDB or DAX.
+
+- **#1**: At-rest encryption is disabled, leading to unprotected storage of sensitive data like PII or session tokens. *(Provision – High)*  
+- **#2**: Customer-managed KMS key (CMK) not used, limiting auditability and fine-grained access control. *(Provision – High)*  
+- **#3**: DynamoDB Accelerator (DAX) cache is unencrypted, exposing in-memory sensitive data. *(Provision / Runtime – Medium)*  
+
+---
+
+##### 🔐 2. Key Management  
+> **Goal**: Exploit lack of cryptographic key isolation or CMK management to weaken data protection boundaries.
+
+- **#9**: Default AWS-managed keys used instead of CMKs, leading to insufficient control and audit over encryption lifecycle. *(Provision – High)*  
+
+---
+
+##### 💾 3. Backup / Recovery Gaps  
+> **Goal**: Cause irreversible data loss by exploiting weak or absent backup strategies.
+
+- **#4**: Continuous backups are disabled, exposing the system to accidental or malicious data deletion. *(Runtime – Medium)*  
+- **#5**: DynamoDB table backups are not configured at all, violating recovery and compliance requirements. *(Runtime – Medium)*  
+
+---
+
+##### ☢️ 4. Deletion / Destructive Action  
+> **Goal**: Delete or tamper with tables due to lack of safeguards for destructive actions.
+
+- **#6**: Deletion protection is disabled, allowing users (or attackers) to remove critical tables without warning. *(Runtime – High)*  
+
+---
+
+##### ⚠️ 5. Data Loss / Logging  
+> **Goal**: Exploit insufficient visibility or injection flaws to wipe data silently or remain undetected.
+
+- **#7**: DynamoDB table is empty, potentially due to injection attacks or accidental overwrites, indicating data integrity loss. *(Runtime – Low–Medium)*  
+
+---
+
+##### 🏷️ 6. Governance / Tagging  
+> **Goal**: Exploit lack of metadata tagging for unauthorized access or billing evasion.
+
+- **#8**: Tables lack tags, hindering cost management, automation, and access policies via IAM condition keys. *(Provision / Governance – Low)*  
+
+---
+
+#### ✅ Summary
+
+This threat tree highlights how **9 distinct misconfigurations in Amazon DynamoDB** map to **6 critical attacker objectives**. These findings prioritize action areas such as **encryption enforcement**, **backup hygiene**, and **deletion protection**, helping teams build resilient, monitored, and secure DynamoDB workloads.
+
+---
+
