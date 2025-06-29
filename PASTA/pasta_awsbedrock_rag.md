@@ -721,3 +721,88 @@ This structured threat tree illustrates how **each misconfiguration or CVE can b
 
 ---
 
+
+---
+
+#### 📌 Threat Tree – Amazon S3
+
+![Threat Tree – Amazon S3](/PASTA/images/threat_tree_s3_enhanced.png)
+
+---
+
+#### 🔍 Threat Tree Explanation – Amazon S3
+
+The **root node** represents the high-level threat scenario:  
+**“Compromise or Abuse of Amazon S3 Data Storage”**.
+
+This branches into multiple **threat categories**, each tied to relevant vulnerabilities and misconfigurations (referenced by their serial numbers from Stage 5.1):
+
+---
+
+##### 🔐 1. Unauthorized Data Access
+> **Goal**: Gain unauthorized access to sensitive S3-stored data due to misconfigured access controls or weak encryption.
+
+- **#5**: S3 buckets are publicly accessible due to missing block public access settings, exposing all data to anonymous users. *(Provision / Runtime – Critical)*
+- **#6**: Insecure ACL configurations assign broader access (like `AllUsers`), enabling unintended parties to list or write to buckets. *(Provision – High)*
+- **#8**: S3 encryption settings are not enforced, meaning sensitive data might be stored or transmitted unencrypted. *(Config / Runtime – High)*
+- **#20**: IAM trust relationships allow principals from external AWS accounts to assume roles, enabling cross-account data access. *(Provision – High)*
+
+---
+
+##### 🌐 2. Insecure Data Transmission / Retrieval
+> **Goal**: Intercept or retrieve unprotected data in transit or credentials stored insecurely.
+
+- **#3**: AWS SDK behavior stores encryption metadata in plain text, potentially exposing keys if storage is breached. *(Code Logic – Medium)*
+- **#4**: Jenkins plugin writes AWS credentials in plaintext on disk during build steps, risking theft from compromised CI agents. *(Provisioning – Medium)*
+- **#13**: Data transmitted over HTTP rather than HTTPS allows MITM attacks to intercept sensitive payloads. *(Runtime – High)*
+
+---
+
+##### 🛠️ 3. Remote Execution / SSRF / XXE
+> **Goal**: Execute unauthorized actions via injection techniques using malicious XML or SSRF endpoints.
+
+- **#1**: Eclipse JGit parses untrusted XML stored in S3, enabling XML External Entity (XXE) injection during dependency management. *(Build – Medium)*
+- **#2**: The `locals3` test tool exposes SSRF vectors via misconfigured endpoints accessible during automated test pipelines. *(Build / Test Tools – Medium)*
+
+---
+
+##### 🔄 4. Supply Chain Attacks
+> **Goal**: Compromise the build pipeline through insecure plugins or artifacts that interact with S3.
+
+- **#15**: CI/CD tools like JGit and Jenkins S3 plugins are misconfigured or outdated, exposing the build system to tampering. *(Build / CI-CD – High)*
+- **#17**: Third-party build plugins with known CVEs are still used without vetting or patching, introducing backdoor risks. *(Build / CI-CD – Medium)*
+
+---
+
+##### 🧩 5. Data Integrity & Recovery Gaps
+> **Goal**: Prevent recovery or traceability of altered/deleted data due to lack of integrity controls.
+
+- **#7**: MFA Delete is not enabled, making it easier for attackers or automated scripts to delete critical data without strong authentication. *(Provision – High)*
+- **#10**: S3 object versioning is disabled, meaning deleted or modified data can't be rolled back in the event of corruption or ransomware. *(Runtime – Medium)*
+
+---
+
+##### 🔍 6. Logging and Monitoring Gaps
+> **Goal**: Remain undetected by exploiting lack of auditing and visibility in S3 activity.
+
+- **#9**: Bucket logging and access logging are disabled, so unauthorized access and operational events are not auditable. *(Runtime / Compliance – Medium)*
+- **#18**: Older buckets exist without monitoring tags or lifecycle policies, creating blind spots in usage and compliance monitoring. *(Runtime / Lifecycle – Medium)*
+
+---
+
+##### 📡 7. Attack Surface Expansion
+> **Goal**: Leverage unused or misconfigured S3 features to expand attack vectors.
+
+- **#11**: Buckets lack basic hygiene measures like tagging, DNS compliance, or lifecycle rules, making them hard to track and control. *(Management – Low)*
+- **#12**: Static website hosting is enabled, which exposes public endpoints potentially exploitable for phishing or drive-by downloads. *(Runtime / Exposure – Medium)*
+- **#14**: Transfer Acceleration is active without restriction, enabling abuse for exfiltration or traffic proxying. *(Runtime – Medium)*
+- **#19**: Public endpoints do not enforce rate limiting or DDoS protections, increasing susceptibility to abuse or service degradation. *(Runtime – Medium)*
+- **#16**: IAM policies grant broad delegation rights over S3 actions, enabling privilege abuse through over-permissive role assumptions. *(Provision / Runtime – High)*
+
+---
+
+#### ✅ Summary
+
+This threat tree demonstrates how **20 unique vulnerabilities and misconfigurations** in Amazon S3 map to **7 critical attacker objectives**. These findings help prioritize remediation, improve cloud governance, and prepare for **attack path simulation** in Stage 6.
+
+---
