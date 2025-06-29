@@ -846,7 +846,7 @@ Embedding and vector payloads may be leaked due to:
 - **[#4]** TLS is either disabled or using outdated ciphers, allowing attackers to intercept API traffic and extract embeddings in transit. *(Transport Security Flaw)*
 - **[#6]** Data at rest is not encrypted using AWS KMS or other mechanisms, leaving sensitive vectors in plaintext in disk snapshots. *(At-Rest Exposure Risk)*
 - **[#13]** Public network access to OpenSearch is enabled without access policies, allowing anyone to extract stored vectors via HTTP requests. *(Public Exposure Risk)*
-- **[#17]** TLS configurations are static and vulnerable to protocol downgrade attacks, opening doors to man-in-the-middle interceptions. *(Downgrade Attack Surface)*
+- **[#16]** TLS configurations are static and vulnerable to protocol downgrade attacks, opening doors to man-in-the-middle interceptions. *(Downgrade Attack Surface)*
 
 ---
 
@@ -862,7 +862,7 @@ Attack surface increases via:
 - **Phase:** Runtime / Compliance  
 Monitoring failures hinder visibility into attacks:
 - **[#7]** Audit logging is disabled, preventing any detection of unauthorized searches, vector tampering, or access violations. *(Observability Blindspot)*
-- **[#16]** Behavioral analytics for search patterns or API activity is not enabled, leaving adversarial usage patterns undetected. *(Anomaly Detection Deficiency)*
+- **[#15]** Behavioral analytics for search patterns or API activity is not enabled, leaving adversarial usage patterns undetected. *(Anomaly Detection Deficiency)*
 
 ---
 
@@ -870,13 +870,6 @@ Monitoring failures hinder visibility into attacks:
 - **Phase:** Ingest / Runtime  
 Attackers may manipulate search results by:
 - **[#14]** Open ingestion APIs allow arbitrary embedding uploads without validation or authentication, enabling poisoning of vector space with adversarial inputs. *(Input Validation Risk)*
-
----
-
-##### **T6 – Embedding Extraction via Abuse**
-- **Phase:** Runtime / API  
-Adversaries abuse vector similarity APIs to infer training data:
-- **[#15]** Brute-force queries using crafted vectors can be used to approximate or extract original embeddings stored in OpenSearch, violating data confidentiality. *(Model Inference Leakage)*
 
 ---
 
