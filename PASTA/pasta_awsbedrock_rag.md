@@ -632,3 +632,92 @@ The Lambda function serves as the central orchestrator for interacting with Amaz
 | 10    | **Info Disclosure / Recon**    | **\[AML.CS0006] Info Disclosure via Prompts or Metadata** | Runtime     | **High**     | CWE-200 / CWE-359: Exposure of Private Information | Sensitive responses can leak internal instructions, embeddings, system prompts, etc.                  |
 | 11    | **Availability / DoS**         | **\[AML.CS0016] LLM Denial of Service (prompt spamming)** | Runtime     | **Medium**   | CWE-400: Uncontrolled Resource Consumption         | Prompt loops or oversized inputs can choke model invocations or cause billing spikes                  |
 
+
+---
+
+### 🌲 5.2 Mapping Threats to Vulnerabilities and Misconfigurations (Threat Trees)
+
+This subsection visualizes how each previously identified threat scenario is mapped to known vulnerabilities and misconfigurations in the Lambda function. By creating a **Threat Tree**, we uncover how different categories of risks (e.g., privilege escalation, remote code execution, denial of service) are realized through combinations of misconfigurations, outdated components, and poor deployment hygiene.
+
+Threat trees are instrumental in understanding:
+- The **logical structure** of how a threat could materialize,
+- The **pathways** an attacker could follow, and
+- How each vulnerability links to an exploit scenario.
+
+#### 🖼️ Lambda Threat Tree Visualization
+
+![Lambda Threat Tree](/images/threat_tree_lambda_enhanced.png)
+
+> **Figure**: Threat Tree representing threat categories and related Lambda vulnerabilities.
+
+---
+
+---
+
+#### 🔍Threat Tree Explanation – Lambda Orchestrator
+
+The root of this threat tree is the critical risk: **“Compromise of the Lambda Orchestrator”**, which plays a central role in processing, coordination, and downstream interactions with other microservices and AI components.
+
+This compromise may manifest through a variety of attacker goals, each driven by a distinct class of vulnerabilities or misconfigurations across different **phases of the application lifecycle** and within varied **runtime environments** (e.g., CI/CD, runtime, provisioning):
+
+---
+
+### 🔐 Privilege Escalation
+**Lifecycle Phase**: Provisioning  
+**Environment**: Deployment  
+These risks originate from overly broad permissions or insufficient trust boundaries:
+- **Over-permissioned IAM roles** (`CWE-284`): Lambdas with `*` actions or `sts:AssumeRole` are prime targets for privilege escalation.
+- **CVE-2024-37293** (`CWE-266`): Auto-deployment of Lambda with elevated access can lead to CI/CD abuse and misuse of roles.
+- **SourceArn not restricted**: Trigger-based Lambdas without `SourceArn` limits allow untrusted invocation paths, bypassing access control layers.
+
+---
+
+### 💥 Remote Code Execution (RCE)
+**Lifecycle Phase**: Build / Development  
+**Environment**: Runtime  
+Vulnerabilities that allow attackers to execute arbitrary commands:
+- **CVE-2019-10777** (`CWE-78`): Unvalidated `FunctionName` input leads to OS command injection in build scripts or runtime logic.
+- **Event injection** (`CNAS-2`): Crafted JSON via API Gateway exploits loose validation, leading to logic abuse or unauthorized code execution.
+
+---
+
+### 🧯 Denial of Service (DoS)
+**Lifecycle Phase**: Runtime  
+**Environment**: Public Internet / API  
+DoS stems from inefficient processing or missing safeguards:
+- **CVE-2018-7560** (`CWE-20`): ReDoS using malformed multipart input overwhelms regex parsers.
+- **No concurrency/time limits**: Absence of these limits enables long-running or recursive invocations, exhausting Lambda concurrency.
+
+---
+
+### 🕵️‍♂️ Sensitive Data Exposure
+**Lifecycle Phase**: Config / Runtime  
+**Environment**: Shared / Multi-tenant  
+Weak secrets management and open network exposure:
+- **Plaintext secrets in env vars** (`CNAS-5`, `CWE-522`): Secrets are readable in config metadata if not encrypted or managed by Secrets Manager.
+- **Public access via VPC**: Lambdas with unrestricted internet access can be used as entry points or data exfiltration paths.
+
+---
+
+### ⚙️ Supply Chain Compromise
+**Lifecycle Phase**: Build / Deploy  
+**Environment**: CI/CD  
+Pipeline security issues that introduce unverified or malicious code:
+- **Code signing disabled**: Allows unsigned or tampered packages to be deployed.
+- **Known vulnerable dependencies** (`CNAS-7`): Third-party packages included at build-time introduce known CVEs into production code.
+
+---
+
+### 🧾 Logging and Detection Gaps
+**Lifecycle Phase**: Runtime  
+**Environment**: Cloud Monitoring / Security Analytics  
+Without proper monitoring, threats may go unnoticed:
+- **CloudWatch alarms/tracing disabled**: Lack of metrics and tracing delays incident response.
+- **Missing resource monitoring** (`CNAS-10`): No audit trail to detect anomaly patterns or post-exploit investigations.
+
+---
+
+This structured threat tree illustrates how **each misconfiguration or CVE can be a critical node in the attack path**, often interlinked with others, enabling **multi-stage attacks**. It underlines the importance of **contextual hardening**, **runtime observability**, and **lifecycle-aware security enforcement** in securing Lambda orchestrators within AI-centric cloud-native architectures.
+
+---
+
