@@ -806,3 +806,87 @@ This branches into multiple **threat categories**, each tied to relevant vulnera
 This threat tree demonstrates how **20 unique vulnerabilities and misconfigurations** in Amazon S3 map to **7 critical attacker objectives**. These findings help prioritize remediation, improve cloud governance, and prepare for **attack path simulation** in Stage 6.
 
 ---
+
+---
+
+#### 📊 Threat Tree – OpenSearch Vector Store
+
+![Threat Tree – Amazon OpenSearch](/PASTA/images/threat_tree_opensearch_enhanced_numbered.png)
+
+---
+
+#### 🔍 Threat Tree Explanation – Amazon OpenSearch Vector Store
+
+The threat tree for **Amazon OpenSearch** outlines the risk of **compromise or abuse** of the vector store component, which is critical in AI-driven applications like semantic search or retrieval-augmented generation (RAG). OpenSearch often stores user-generated embeddings or proprietary data – making it a high-value target.
+
+---
+
+##### 🧨 Root Threat
+> **“Compromise or Abuse of OpenSearch Vector Store”**  
+This root represents risks stemming from insecure access, exposure of embeddings, and manipulation of vector data or configurations.
+
+---
+
+##### 🎯 Threat Objectives & Attack Paths
+
+##### **T1 – Unauthorized Access**
+- **Phase:** Provisioning / Runtime  
+- **Environment:** Public domains, IAM misconfigurations  
+Attackers may exploit:
+- **[#2]** IAM authentication is disabled or misconfigured, allowing anonymous access to OpenSearch clusters without role verification. *(Critical Access Control Flaw)*
+- **[#3]** Public OpenSearch endpoints are left exposed to the internet, offering unrestricted query access to anyone with the endpoint URL. *(Perimeter Misconfiguration)*
+- **[#5]** Cross-account access permissions are poorly scoped, enabling unintended principals to discover or manipulate OpenSearch indexes. *(Trust Boundary Weakness)*
+- **[#11]** Internal IAM roles are over-permissive, enabling lateral movement or privilege abuse within the same account. *(Least Privilege Violation)*
+- **[#20]** IAM trust relationships are weakly defined, making it easier for external roles to impersonate internal access. *(Cross-Tenant Risk)*
+
+---
+
+##### **T2 – Sensitive Data Exposure**
+- **Phase:** Storage / Network  
+Embedding and vector payloads may be leaked due to:
+- **[#4]** TLS is either disabled or using outdated ciphers, allowing attackers to intercept API traffic and extract embeddings in transit. *(Transport Security Flaw)*
+- **[#6]** Data at rest is not encrypted using AWS KMS or other mechanisms, leaving sensitive vectors in plaintext in disk snapshots. *(At-Rest Exposure Risk)*
+- **[#13]** Public network access to OpenSearch is enabled without access policies, allowing anyone to extract stored vectors via HTTP requests. *(Public Exposure Risk)*
+- **[#17]** TLS configurations are static and vulnerable to protocol downgrade attacks, opening doors to man-in-the-middle interceptions. *(Downgrade Attack Surface)*
+
+---
+
+##### **T3 – Insecure Configuration / Credential Leakage**
+- **Phase:** Build / DevOps  
+Attack surface increases via:
+- **[#1]** OpenSearch CLI config files (e.g., `~/.opensearch/config`) are world-readable, exposing API tokens or secrets to local adversaries or containers. *(Filesystem Permissions Misuse)*
+- **[#12]** Secrets such as admin passwords or tokens are hardcoded or committed to configuration files within infrastructure code or containers. *(Secret Hygiene Failure)*
+
+---
+
+##### **T4 – Logging & Detection Gaps**
+- **Phase:** Runtime / Compliance  
+Monitoring failures hinder visibility into attacks:
+- **[#7]** Audit logging is disabled, preventing any detection of unauthorized searches, vector tampering, or access violations. *(Observability Blindspot)*
+- **[#16]** Behavioral analytics for search patterns or API activity is not enabled, leaving adversarial usage patterns undetected. *(Anomaly Detection Deficiency)*
+
+---
+
+##### **T5 – Vector Store Poisoning**
+- **Phase:** Ingest / Runtime  
+Attackers may manipulate search results by:
+- **[#14]** Open ingestion APIs allow arbitrary embedding uploads without validation or authentication, enabling poisoning of vector space with adversarial inputs. *(Input Validation Risk)*
+
+---
+
+##### **T6 – Embedding Extraction via Abuse**
+- **Phase:** Runtime / API  
+Adversaries abuse vector similarity APIs to infer training data:
+- **[#15]** Brute-force queries using crafted vectors can be used to approximate or extract original embeddings stored in OpenSearch, violating data confidentiality. *(Model Inference Leakage)*
+
+---
+
+##### **T7 – Platform Hardening Gaps**
+- **Phase:** Runtime / Patch / HA  
+Operational weaknesses reduce resilience:
+- **[#8]** OpenSearch version is outdated, with unpatched vulnerabilities that can be exploited remotely (e.g., CVEs in Lucene or plugin dependencies). *(Patch Management Gap)*
+- **[#9]** Zone awareness is disabled, meaning OpenSearch lacks availability zone failover, increasing risk of full-service disruption during localized failures. *(High Availability Weakness)*
+- **[#10]** Node types used in the cluster are not optimized for k-NN/ANN workloads, which can result in latency issues and missed similarity matches under load. *(Performance/Capacity Risk)*
+
+---
+
