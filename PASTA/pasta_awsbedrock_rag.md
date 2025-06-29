@@ -529,7 +529,7 @@ The Lambda function serves as the central orchestrator for interacting with Amaz
 
 ---
 
-#### 🧠 Opensearch () – Vulnerability Mapping
+#### 🧠 Opensearch (vector db) – Vulnerability Mapping
 
 | **#** | **Category**                        | **Vulnerability / CWE / Misconfiguration**                                                                  | **Phase**            | **Risk**           | **Details / Context**                                                                             |
 | ----- | ----------------------------------- | ----------------------------------------------------------------------------------------------------------- | -------------------- | ------------------ | ------------------------------------------------------------------------------------------------- |
@@ -547,9 +547,8 @@ The Lambda function serves as the central orchestrator for interacting with Amaz
 | 12    | **CNAS-5: Unencrypted Secrets**     | CLI config stored with plaintext endpoint/keys (linked to CVE-2021-44833)                                   | Dev                  | **High**           | Exploitable during lateral movement or code repo leakage                                          |
 | 13    | **CNAS-6: Insecure Network Policy** | Public endpoint exposed or internal traffic not restricted (ACLs, SGs)                                      | Runtime / Network    | **High**           | Embedding store vulnerable to vector scraping, brute search attacks                               |
 | 14    | **Vector-Specific Threat**          | 🔐 **Malicious Embedding Insertion** (custom attack)                                                        | Ingest / Runtime     | **High**           | Poisoning vector store via adversarial embeddings affecting similarity behavior or search results |
-| 15    | **Vector-Specific Threat**          | 🔐 **Embedding Extraction via Brute Queries**                                                               | Runtime / API Abuse  | **High**           | Adversaries infer embeddings or search space by spamming similarity queries                       |
-| 16    | **Unmonitored Access Pattern**      | Lack of behavioral analytics or query pattern analysis                                                      | Runtime              | **Medium**         | Unusual usage of semantic APIs could signal abuse but goes undetected                             |
-| 17    | **Static TLS / Cipher Config**      | TLS version/ciphers hardcoded or outdated                                                                   | Runtime / Network    | **Medium**         | Insecure transport encryption risks                                                               |
+| 15    | **Unmonitored Access Pattern**      | Lack of behavioral analytics or query pattern analysis                                                      | Runtime              | **Medium**         | Unusual usage of semantic APIs could signal abuse but goes undetected                             |
+| 16    | **Static TLS / Cipher Config**      | TLS version/ciphers hardcoded or outdated                                                                   | Runtime / Network    | **Medium**         | Insecure transport encryption risks                                                               |
 
 
 
