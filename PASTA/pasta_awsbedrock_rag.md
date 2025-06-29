@@ -646,7 +646,7 @@ Threat trees are instrumental in understanding:
 
 #### 🖼️ Lambda Threat Tree Visualization
 
-![Lambda Threat Tree](/images/threat_tree_lambda_enhanced.png)
+![Lambda Threat Tree](/PASTA/images/threat_tree_lambda_enhanced.png)
 
 > **Figure**: Threat Tree representing threat categories and related Lambda vulnerabilities.
 
