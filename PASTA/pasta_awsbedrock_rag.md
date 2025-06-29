@@ -951,3 +951,101 @@ This threat tree highlights how **9 distinct misconfigurations in Amazon DynamoD
 
 ---
 
+
+---
+
+#### 📌 Threat Tree – Amazon API Gateway
+
+![Threat Tree – Amazon API Gateway](/PASTA/images/threat_tree_apigateway_enhanced_LR.png)
+
+---
+
+#### 🔍 Threat Tree Explanation – Amazon API Gateway
+
+The **root node** represents the high-level threat scenario:  
+**“Compromise or Abuse of Amazon API Gateway APIs”**
+
+This branches into multiple **threat categories**, each tied to relevant vulnerabilities and misconfigurations (referenced by their serial numbers from Stage 5.1):
+
+---
+
+##### 🔐 1. Authentication & Authorization Gaps  
+> **Goal**: Exploit missing or misconfigured access controls to invoke protected APIs.
+
+- **#1**: API Gateway authorization not enabled, allowing unauthenticated users to trigger backend Lambda functions. *(Runtime – Critical)*  
+- **#2**: API Gateway V2 authorization missing for HTTP APIs, exposing serverless or bot logic to anonymous abuse. *(Runtime – Critical)*  
+
+---
+
+##### 🔒 2. Transport Security Misconfiguration  
+> **Goal**: Exploit weak TLS configurations to perform MITM or downgrade attacks.
+
+- **#3**: Custom domain TLS version set below 1.2, enabling insecure connections. *(Provision – High)*  
+- **#4**: Secure TLS policy not enforced, allowing negotiation of weak ciphers. *(Provision – High)*  
+
+---
+
+##### 🚫 3. Access Control Exposure  
+> **Goal**: Access internal APIs or functions due to public or legacy endpoints.
+
+- **#5**: No public access restrictions applied via resource policies or IP allowlists. *(Runtime – Critical)*  
+- **#6**: Default endpoint is not disabled, creating alternate invoke paths that may bypass authorization. *(Runtime – High)*  
+
+---
+
+##### 🛡️ 4. Traffic Protection & Abuse Prevention  
+> **Goal**: Overload or exploit APIs through brute force, scraping, or automation.
+
+- **#7**: AWS WAF not enabled on API Gateway, allowing abuse like prompt injection or enumeration. *(Runtime – High)*  
+- **#8**: Client certificate not required, weakening mTLS-based internal communication. *(Runtime – Medium)*  
+
+---
+
+##### 🧹 5. Input Validation & Encoding  
+> **Goal**: Send malformed requests or payloads to exploit validation gaps.
+
+- **#9**: Request validation is not enabled, increasing risk of schema-less attacks or fuzzing payloads. *(Runtime – High)*  
+- **#10**: Content encoding not enforced, enabling request smuggling or header abuse through improper parsing. *(Runtime – Medium)*  
+
+---
+
+##### 📊 6. Monitoring, Logging & Observability  
+> **Goal**: Remain undetected by exploiting lack of logging, tracing, or metrics.
+
+- **#11**: Access logging not enabled, obscuring request history and client identity. *(Runtime – Medium)*  
+- **#12**: V2 (HTTP API) access logs not enabled, losing visibility into lightweight production APIs. *(Runtime – Medium)*  
+- **#13**: CloudWatch metrics not enabled, preventing alerting on failure or usage anomalies. *(Runtime – Medium)*  
+- **#14**: Tracing (e.g., X-Ray) not configured, reducing visibility across the full request lifecycle. *(Runtime – Medium)*  
+
+---
+
+##### 💾 7. Caching Misconfiguration  
+> **Goal**: Allow sensitive response caching without adequate protection.
+
+- **#15**: Stage-level cache encryption is disabled, risking exposure of sensitive data in cache memory. *(Provision – Medium)*  
+- **#16**: Caching is disabled where applicable, degrading performance and increasing cost. *(Runtime – Low–Medium)*  
+- **#17**: Cache encryption not enabled, exposing token metadata in cache layers. *(Provision – Medium)*  
+
+---
+
+##### 🔑 8. Certificate & Key Management  
+> **Goal**: Exploit long-lived or mismanaged certificates for spoofing or replay.
+
+- **#18**: Certificate rotation is not enabled, increasing exposure if certs are compromised. *(Maintenance – Medium)*  
+
+---
+
+#### ✅ Summary
+
+This threat tree highlights how **18 unique misconfigurations and design flaws** in Amazon API Gateway map to **8 major attacker objectives**. These findings support prioritizing efforts in:
+
+- **Authentication enforcement**
+- **Secure traffic handling**
+- **Cache and cert hygiene**
+- **Observability and abuse detection**
+
+Improving these areas significantly reduces the API attack surface and enables more resilient, secure serverless architectures.
+
+---
+
+
