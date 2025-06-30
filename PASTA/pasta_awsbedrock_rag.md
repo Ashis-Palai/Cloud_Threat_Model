@@ -1048,3 +1048,73 @@ Improving these areas significantly reduces the API attack surface and enables m
 ---
 
 
+
+---
+
+#### 📌 Threat Tree – Amazon API Gateway
+
+![Threat Tree – Amazon API Gateway](/PASTA/images/threat_tree_bedrock_enhanced_LR.png.png)
+
+---
+#### 🧠 Threat Tree – AWS Bedrock Chatbot Architecture
+
+
+##### 🔐 1. Spoofing / Unauthorized Access
+> **Goal**: Exploit missing network isolation or public endpoints to gain unauthorized inference access or impersonate trusted services.
+
+- **#2 – Private Custom Model Not Configured**
+  - Without a private endpoint, Bedrock-hosted models may be accessible externally.
+  - **Risk**: External actors could invoke model APIs directly.
+  - `Phase: Provision | Risk: High | CWE-200`
+
+- **#3 – Custom Model Not in VPC**
+  - Lack of VPC isolation makes models accessible from outside the private network.
+  - **Risk**: Model APIs exposed to public internet or untrusted networks.
+  - `Phase: Provision | Risk: High | CWE-668`
+
+---
+
+##### 🧪 2. Tampering / Poisoning
+> **Goal**: Introduce malicious inputs (e.g., poisoned training data or pipeline steps) to affect model behavior.
+
+- **#6 – Notebook Direct Internet Access Enabled**
+  - Notebooks with outbound internet access can download untrusted data or execute unauthorized code.
+  - **Risk**: Poisoned training corpora or dependency hijacking.
+  - `Phase: Runtime | Risk: High | CWE-668 / CWE-200`
+
+---
+
+##### 🧾 3. Repudiation / Lack of Audit
+> **Goal**: Prevent detection or accountability by disabling visibility into model usage or prompt flows.
+
+- **#1 – Bedrock Model Invocation Logging Disabled**
+  - Disables CloudWatch logs for Bedrock requests.
+  - **Risk**: No traceability for prompt injection, abuse, or misuse.
+  - `Phase: Runtime | Risk: High | CWE-778`
+
+---
+
+##### 🔍 4. Information Disclosure
+> **Goal**: Leak sensitive data like embeddings, model parameters, or training data due to lack of encryption or data controls.
+
+- **#4 – Custom Model Encryption Disabled**
+  - Unencrypted model artifacts in storage (e.g., S3) can be exfiltrated.
+  - **Risk**: Intellectual property theft or reverse engineering.
+  - `Phase: Provision | Risk: High | CWE-311`
+
+- **#8 – Notebook Data Not Encrypted**
+  - Data used or stored in notebooks (e.g., training corpora or embeddings) is not encrypted at rest.
+  - **Risk**: Sensitive corpora extraction or data leakage.
+  - `Phase: Runtime | Risk: High | CWE-311`
+
+---
+
+##### 🧱 5. Escalation via Misconfiguration
+> **Goal**: Gain broader privileges due to improper scoping or resource isolation failures.
+
+- **#7 – Notebook Instance Not in VPC**
+  - Notebooks outside VPC can access AWS resources with broad permissions.
+  - **Risk**: Privilege escalation or lateral movement.
+  - `Phase: Provision | Risk: High | CWE-284 / CWE-732`
+
+---
