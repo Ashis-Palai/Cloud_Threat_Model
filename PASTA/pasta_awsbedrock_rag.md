@@ -1051,9 +1051,9 @@ Improving these areas significantly reduces the API attack surface and enables m
 
 ---
 
-#### 📌 Threat Tree – Amazon API Gateway
+#### 📌 Threat Tree – Amazon Bedrock
 
-![Threat Tree – Amazon API Gateway](/PASTA/images/threat_tree_bedrock_enhanced_LR.png.png)
+![Threat Tree – Amazon Bedrock](/PASTA/images/threat_tree_bedrock_enhanced_LR.png.png)
 
 ---
 #### 🧠 Threat Tree – AWS Bedrock Chatbot Architecture
