@@ -1118,3 +1118,189 @@ Improving these areas significantly reduces the API attack surface and enables m
   - `Phase: Provision | Risk: High | CWE-284 / CWE-732`
 
 ---
+
+## 🛡️ Stage 6 : Attack Modeling
+
+
+This document covers **Step 6: Attack Modeling** from the [PASTA](https://owasp.org/www-community/Threat_Modeling) (Process for Attack Simulation and Threat Analysis) methodology. This step builds on insights from earlier stages to **simulate real-world attack scenarios**, helping identify how threats can materialize into actual exploits against critical assets.
+
+---
+
+### 🔁 Recap: PASTA Stage Flow Leading to Attack Modeling
+
+| Step | Title                                  | Purpose |
+|------|----------------------------------------|---------|
+| 1    | **Define the Objectives**              | Understand business and security goals |
+| 2    | **Define the Technical Scope**         | Map out the architecture and components |
+| 3    | **Application Decomposition**          | Identify data flows, trust boundaries, and system interactions |
+| 4    | **Threat Analysis**                    | Identify and classify relevant threats and threat agents |
+| 5    | **Vulnerability & Weakness Analysis**  | Discover system and application vulnerabilities |
+| 6    | **Attack Modeling**                    | Simulate how attackers could exploit the system |
+| 7    | (Next) **Risk and Impact Analysis**    | Quantify risk and prioritize mitigations |
+
+---
+
+### 🎯 Step 6: Purpose of Attack Modeling
+
+The goal of this stage is to simulate **how an attacker could exploit identified vulnerabilities** and interact with the system to compromise assets. This is done by logically modeling attack steps, mapping vectors, and identifying exploit paths.
+
+Attack modeling provides the **"attacker's perspective"**, turning earlier data into actionable security insights and testing artifacts.
+
+---
+
+### 👥 Stakeholders and Consumers
+
+| Role               | Purpose of Consumption                                |
+|--------------------|--------------------------------------------------------|
+| Red Team / Pentesters | Simulate real-world attacks and validate security posture |
+| Developers         | Understand how vulnerabilities can be exploited        |
+| Security Architects| Strengthen security design, control placement          |
+| Risk Analysts      | Score risk based on modeled attack scenarios           |
+
+---
+
+### 🛠️ Techniques and Artifacts Used
+
+- **Attack Trees** for structured threat logic
+- **Trust Boundaries** and **Control Zones** for scoping
+- **Known Attack Libraries**: MITRE ATT&CK, OWASP Top 10, CAPEC
+- Optional: Kill Chains, STRIDE mapping for cross-validation
+
+---
+
+### 📦 Outputs and Deliverables
+
+- Modeled **attack trees** per threat scenario
+- List of **mapped attack vectors** per system component
+- Detailed **exploit paths** with decision logic
+- Foundation for pen testing, mitigation, and risk quantification
+
+---
+
+### 🔶 Step 6.1 – Identify the Application Attack Surface
+
+This step identifies **where and how** the system can be attacked, by listing:
+
+- 📍 **Entry Points**: APIs, UIs, integrations, public endpoints  
+- 📍 **Exposed Components**: Cloud services, containers, databases, serverless functions  
+- 📍 **Data Flows and Channels**: Communication between services, across trust zones  
+- 📍 **Trust Boundaries**: Zones of varying control and exposure  
+
+This forms the **scope** of where threats and attack vectors can manifest.
+
+---
+
+### 🔶 Step 6.2 – Derive Attack Trees for Threats and Assets
+
+We build **attack trees** to model attacker strategies and logic. Each tree includes:
+
+- **Attacker goals** (e.g., privilege escalation, data theft)
+- **Sequence of actions** that could lead to successful compromise
+
+#### ✳️ Sample Attack Scenarios Modeled:
+
+- Prompt Injection via RAG Context Pollution  
+- Token Replay & API Abuse via Gateway  
+- Vector Index Poisoning in OpenSearch  
+- LLM Response Spoofing in Transit  
+- Over-permissioned Lambda ➝ Privilege Escalation  
+
+These scenarios represent real-world risk in modern cloud-native and AI-driven environments.
+
+---
+
+### 🔶 Step 6.3 – Map Attack Vectors to Attack Tree Nodes
+
+Each node in the attack tree is enriched with **real-world attack vectors**, such as:
+
+- 🧰 **Credential Abuse** (e.g., token replay, hardcoded secrets)  
+- 🧰 **Injection Techniques** (e.g., prompt injection, payload manipulation)  
+- 🧰 **Infrastructure Attacks** (e.g., OpenSearch poisoning, SSRF)  
+- 🧰 **Cloud Misconfigurations** (e.g., over-permissioned roles)  
+- 🧰 **API Abuse** (e.g., rate bypass, schema fuzzing)  
+
+Sources like **MITRE ATT&CK** and **MITRE Cloud Matrix**  are referenced to ensure relevance.
+
+---
+
+### 🔶 Step 6.4 – Identify Exploits and Attack Paths
+
+Finally, we identify **complete exploit chains** and how they traverse the system, including:
+
+- Entry → Lateral Movement → Privilege Escalation → Impact  
+- Chain of events mapped from **initial vector** to **final asset compromise**
+- Multiple attacker paths per scenario, including alternate or fallback methods
+
+These paths become the basis for:
+
+- Penetration Testing playbooks  
+- Risk scoring (Likelihood × Impact)  
+- Control design and mitigation planning  
+
+---
+
+
+### 🔶 Step 6.1 – Identify the Application Attack Surface
+
+This step focuses on identifying and documenting the **application attack surface** — all the points where an attacker may interact with the system, directly or indirectly. Understanding the attack surface is crucial for determining **where threats can manifest**, and which assets or entry points may be exploited in later stages of an attack.
+
+#### 🧭 Purpose
+
+The goal is to:
+
+- Map **entry and interaction points** across the application
+- Define what’s **exposed**, to whom, and under what conditions
+- Highlight areas where **untrusted input** enters the system
+- Establish **trust boundaries** between services and users
+- Identify **control gaps** or over-permissioned components
+
+---
+
+#### 📍 Identified Attack Surface
+
+| **Asset / Component**     | **Attack Surface Element**                     | **Exposed To**             | **Security Notes**                                                                 |
+| ------------------------- | ---------------------------------------------- | -------------------------- | ---------------------------------------------------------------------------------- |
+| **ECS (UI frontend)**     | User prompt submission via frontend → ECS HTTP | **External users**         | Accepts unstructured input; primary injection point for prompt manipulation        |
+| **API Gateway**           | Internal API endpoint (ECS → Lambda)           | **Internal only**          | May be abused from inside VPC; risks include token replay or request fuzzing       |
+| **Lambda (Orchestrator)** | Coordinates input flow → DynamoDB, OpenSearch, Bedrock | **Internal services**    | High-value target; over-permissioned IAM role could enable lateral movement        |
+| **S3 (Document Bucket)**  | Stores user-uploaded PDFs                      | **Internal via Lambda**    | Poisoned files could affect downstream ML/LLM processing via embedded payloads     |
+| **OpenSearch**            | Vector query API via SDK                       | **Lambda only**            | Vulnerable to index poisoning or vector tampering if ACLs fail                     |
+| **Bedrock (Claude 3)**    | Generative AI model API for prompt response    | **Lambda only**            | Prompt injection could manipulate LLM behavior or exfiltrate data                  |
+| **DynamoDB**              | Stores chat/session state                      | **Lambda only**            | Poor session isolation or token re-use could lead to unauthorized access           |
+| **IAM Roles / STS**       | Lambda role with broad service permissions     | **AWS IAM trust policies** | Misconfigured trust relationships can lead to privilege escalation or role abuse   |
+| **CloudWatch / Logging**  | Logging visibility (metrics, traces, logs)     | **Admin-only**             | Lack of granular logging may create visibility blind spots for threat detection    |
+
+---
+
+#### 🔐 Trust Boundaries and Exposure Types
+
+The system consists of multiple **trust boundaries** that determine exposure:
+
+- **External boundary**: Between untrusted users and ECS (UI)
+- **Internal API boundary**: ECS → API Gateway → Lambda
+- **Service interaction boundary**: Lambda’s communication with AWS services (Bedrock, OpenSearch, DynamoDB)
+- **Cloud infrastructure boundary**: IAM roles, STS trust, and monitoring controls
+
+Each boundary must be evaluated for:
+
+- Input validation enforcement  
+- Authentication and session control  
+- Least-privilege IAM policies  
+- Logging and auditability  
+
+---
+
+#### ⚠️ Initial Observations / Risk Areas
+
+- **User Input via ECS**: Unstructured prompts submitted by users represent a high-risk surface for prompt injection or malicious payloads.
+- **Lambda IAM Role**: Over-permissioned role makes Lambda a pivot point for lateral movement across services.
+- **OpenSearch Vector Index**: Accepts embedded inputs indirectly; lacks direct exposure but still at risk if access control fails.
+- **Logging Gaps**: CloudWatch visibility limited to admin users; potential blind spots in API interactions or prompt misuse.
+- **Internal APIs (Gateway → Lambda)**: Though internal, they are susceptible to abuse if request tokens or headers can be replayed or spoofed from within.
+
+---
+
+
+
+
+
