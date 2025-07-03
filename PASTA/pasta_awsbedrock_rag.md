@@ -1300,7 +1300,257 @@ Each boundary must be evaluated for:
 
 ---
 
+![rag_attack_tree_large_spacing](https://github.com/user-attachments/assets/8a698301-4856-464e-9637-a660f6dbb449)
 
+---
+<details>
+  <summary><strong>1. PROMPT INJECTION VIA RAG CONTEXT POLLUTION</strong></summary>
+
+  ![5 Tree](trees/5.png)
+
+  <details>
+    <summary><strong>5.1 IAM Role Misuse</strong></summary>
+
+    ![5.1 Tree](trees/5.1.png)
+
+    <details>
+      <summary><strong>5.1.1 Exploit SSRF to query metadata endpoint</strong></summary>
+      ![5.1.1 Tree](trees/5.1.1.png)
+    </details>
+
+    <details>
+      <summary><strong>5.1.2 Inject malicious command via user input</strong></summary>
+      ![5.1.2 Tree](trees/5.1.2.png)
+    </details>
+
+    <details>
+      <summary><strong>5.1.3 CI/CD misconfiguration exposes Lambda role</strong></summary>
+      ![5.1.3 Tree](trees/5.1.3.png)
+    </details>
+
+    <details>
+      <summary><strong>5.1.4 Lambda assumes cross-account role without trust boundary</strong></summary>
+      ![5.1.4 Tree](trees/5.1.4.png)
+    </details>
+
+  </details>
+
+  <details>
+    <summary><strong>5.2 DynamoDB Unauthorized Access</strong></summary>
+    ![5.2 Tree](trees/5.2.png)
+  </details>
+
+  <details>
+    <summary><strong>5.3 Invoke Bedrock with Malicious Prompt</strong></summary>
+    ![5.3 Tree](trees/5.3.png)
+  </details>
+
+  <details>
+    <summary><strong>5.4 Persistence in Lambda Runtime</strong></summary>
+    ![5.4 Tree](trees/5.4.png)
+  </details>
+
+</details>
+
+---
+<details>
+  <summary><strong>2. TOKEN REPLAY AND API ABUSE VIA GATEWAY</strong></summary>
+
+  ![5 Tree](trees/5.png)
+
+  <details>
+    <summary><strong>5.1 IAM Role Misuse</strong></summary>
+
+    ![5.1 Tree](trees/5.1.png)
+
+    <details>
+      <summary><strong>5.1.1 Exploit SSRF to query metadata endpoint</strong></summary>
+      ![5.1.1 Tree](trees/5.1.1.png)
+    </details>
+
+    <details>
+      <summary><strong>5.1.2 Inject malicious command via user input</strong></summary>
+      ![5.1.2 Tree](trees/5.1.2.png)
+    </details>
+
+    <details>
+      <summary><strong>5.1.3 CI/CD misconfiguration exposes Lambda role</strong></summary>
+      ![5.1.3 Tree](trees/5.1.3.png)
+    </details>
+
+    <details>
+      <summary><strong>5.1.4 Lambda assumes cross-account role without trust boundary</strong></summary>
+      ![5.1.4 Tree](trees/5.1.4.png)
+    </details>
+
+  </details>
+
+  <details>
+    <summary><strong>5.2 DynamoDB Unauthorized Access</strong></summary>
+    ![5.2 Tree](trees/5.2.png)
+  </details>
+
+  <details>
+    <summary><strong>5.3 Invoke Bedrock with Malicious Prompt</strong></summary>
+    ![5.3 Tree](trees/5.3.png)
+  </details>
+
+  <details>
+    <summary><strong>5.4 Persistence in Lambda Runtime</strong></summary>
+    ![5.4 Tree](trees/5.4.png)
+  </details>
+
+</details>
+
+---
+<details>
+  <summary><strong>3. VECTOR INDEX POISONING IN OPENSEARCH</strong></summary>
+
+  ![5 Tree](trees/5.png)
+
+  <details>
+    <summary><strong>5.1 IAM Role Misuse</strong></summary>
+
+    ![5.1 Tree](trees/5.1.png)
+
+    <details>
+      <summary><strong>5.1.1 Exploit SSRF to query metadata endpoint</strong></summary>
+      ![5.1.1 Tree](trees/5.1.1.png)
+    </details>
+
+    <details>
+      <summary><strong>5.1.2 Inject malicious command via user input</strong></summary>
+      ![5.1.2 Tree](trees/5.1.2.png)
+    </details>
+
+    <details>
+      <summary><strong>5.1.3 CI/CD misconfiguration exposes Lambda role</strong></summary>
+      ![5.1.3 Tree](trees/5.1.3.png)
+    </details>
+
+    <details>
+      <summary><strong>5.1.4 Lambda assumes cross-account role without trust boundary</strong></summary>
+      ![5.1.4 Tree](trees/5.1.4.png)
+    </details>
+
+  </details>
+
+  <details>
+    <summary><strong>5.2 DynamoDB Unauthorized Access</strong></summary>
+    ![5.2 Tree](trees/5.2.png)
+  </details>
+
+  <details>
+    <summary><strong>5.3 Invoke Bedrock with Malicious Prompt</strong></summary>
+    ![5.3 Tree](trees/5.3.png)
+  </details>
+
+  <details>
+    <summary><strong>5.4 Persistence in Lambda Runtime</strong></summary>
+    ![5.4 Tree](trees/5.4.png)
+  </details>
+
+</details>
+
+---
+<details>
+  <summary><strong>4. LLM RESPONSE SPOOFING IN TRANSIT</strong></summary>
+
+  ![5 Tree](trees/5.png)
+
+  <details>
+    <summary><strong>5.1 IAM Role Misuse</strong></summary>
+
+    ![5.1 Tree](trees/5.1.png)
+
+    <details>
+      <summary><strong>5.1.1 Exploit SSRF to query metadata endpoint</strong></summary>
+      ![5.1.1 Tree](trees/5.1.1.png)
+    </details>
+
+    <details>
+      <summary><strong>5.1.2 Inject malicious command via user input</strong></summary>
+      ![5.1.2 Tree](trees/5.1.2.png)
+    </details>
+
+    <details>
+      <summary><strong>5.1.3 CI/CD misconfiguration exposes Lambda role</strong></summary>
+      ![5.1.3 Tree](trees/5.1.3.png)
+    </details>
+
+    <details>
+      <summary><strong>5.1.4 Lambda assumes cross-account role without trust boundary</strong></summary>
+      ![5.1.4 Tree](trees/5.1.4.png)
+    </details>
+
+  </details>
+
+  <details>
+    <summary><strong>5.2 DynamoDB Unauthorized Access</strong></summary>
+    ![5.2 Tree](trees/5.2.png)
+  </details>
+
+  <details>
+    <summary><strong>5.3 Invoke Bedrock with Malicious Prompt</strong></summary>
+    ![5.3 Tree](trees/5.3.png)
+  </details>
+
+  <details>
+    <summary><strong>5.4 Persistence in Lambda Runtime</strong></summary>
+    ![5.4 Tree](trees/5.4.png)
+  </details>
+
+</details>
+
+---
+<details>
+  <summary><strong>5. OVER-PERMISSIONED LAMBDA LEADING TO PRIVILEGE ESCALATION</strong></summary>
+
+  ![5 Tree](trees/5.png)
+
+  <details>
+    <summary><strong>5.1 IAM Role Misuse</strong></summary>
+
+    ![5.1 Tree](trees/5.1.png)
+
+    <details>
+      <summary><strong>5.1.1 Exploit SSRF to query metadata endpoint</strong></summary>
+      ![5.1.1 Tree](trees/5.1.1.png)
+    </details>
+
+    <details>
+      <summary><strong>5.1.2 Inject malicious command via user input</strong></summary>
+      ![5.1.2 Tree](trees/5.1.2.png)
+    </details>
+
+    <details>
+      <summary><strong>5.1.3 CI/CD misconfiguration exposes Lambda role</strong></summary>
+      ![5.1.3 Tree](trees/5.1.3.png)
+    </details>
+
+    <details>
+      <summary><strong>5.1.4 Lambda assumes cross-account role without trust boundary</strong></summary>
+      ![5.1.4 Tree](trees/5.1.4.png)
+    </details>
+
+  </details>
+
+  <details>
+    <summary><strong>5.2 DynamoDB Unauthorized Access</strong></summary>
+    ![5.2 Tree](trees/5.2.png)
+  </details>
+
+  <details>
+    <summary><strong>5.3 Invoke Bedrock with Malicious Prompt</strong></summary>
+    ![5.3 Tree](trees/5.3.png)
+  </details>
+
+  <details>
+    <summary><strong>5.4 Persistence in Lambda Runtime</strong></summary>
+    ![5.4 Tree](trees/5.4.png)
+  </details>
+
+</details>
 
 
 
