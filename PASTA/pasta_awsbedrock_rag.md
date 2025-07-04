@@ -402,7 +402,7 @@ An adversary positioned in a compromised or misconfigured network (e.g., via exp
 
 ---
 
-### ⚠️ Threat Scenario: Over-permissioned Lambda Leading to Privilege Escalation
+### ⚠️ Threat Scenario: Over-Permissioned Lambda Enabling Insecure Operations
 
 **Threat Title:**  
 `Over-permissioned Lambda Leading to Privilege Escalation`
@@ -1300,7 +1300,8 @@ Each boundary must be evaluated for:
 
 ---
 
-![rag_attack_tree_large_spacing](https://github.com/user-attachments/assets/8a698301-4856-464e-9637-a660f6dbb449)
+![rag_attack_tree_large_spacing](https://github.com/user-attachments/assets/2bc562e8-009a-4ccb-95f0-b8673afb7a62)
+
 
 ---
 <details>
