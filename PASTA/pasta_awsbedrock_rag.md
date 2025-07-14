@@ -1335,48 +1335,25 @@ Each boundary must be evaluated for:
 <details>
   <summary><strong>2. TOKEN REPLAY AND API ABUSE VIA GATEWAY</strong></summary>
 
-  ![5 Tree](trees/5.png)
+  <img width="1145" height="289" alt="subtree_2_token_replay_gateway_abuse" src="https://github.com/user-attachments/assets/152492e8-3b35-4d54-b8e8-f2129dfe21ca" />
+
 
   <details>
-    <summary><strong>5.1 IAM Role Misuse</strong></summary>
+    <summary><strong>2.1 Token Replay via Frontend or Intercept</strong></summary>
+    <img width="1233" height="1203" alt="deep_subtree_2_1_token_replay" src="https://github.com/user-attachments/assets/f326a94e-383f-4423-930b-ea87ba1a0e55" />
 
-    ![5.1 Tree](trees/5.1.png)
-
-    <details>
-      <summary><strong>5.1.1 Exploit SSRF to query metadata endpoint</strong></summary>
-      ![5.1.1 Tree](trees/5.1.1.png)
-    </details>
-
-    <details>
-      <summary><strong>5.1.2 Inject malicious command via user input</strong></summary>
-      ![5.1.2 Tree](trees/5.1.2.png)
-    </details>
-
-    <details>
-      <summary><strong>5.1.3 CI/CD misconfiguration exposes Lambda role</strong></summary>
-      ![5.1.3 Tree](trees/5.1.3.png)
-    </details>
-
-    <details>
-      <summary><strong>5.1.4 Lambda assumes cross-account role without trust boundary</strong></summary>
-      ![5.1.4 Tree](trees/5.1.4.png)
-    </details>
 
   </details>
 
   <details>
-    <summary><strong>5.2 DynamoDB Unauthorized Access</strong></summary>
-    ![5.2 Tree](trees/5.2.png)
+    <summary><strong>2.2 API Gateway Misconfiguration</strong></summary>
+    <img width="1546" height="1020" alt="deep_subtree_2_2_api_gateway_misconfig" src="https://github.com/user-attachments/assets/3cee6808-02e4-4158-be00-59a737de758b" />
+
   </details>
 
   <details>
-    <summary><strong>5.3 Invoke Bedrock with Malicious Prompt</strong></summary>
+    <summary><strong>2.3 Token-Based Function Abuse (LLM or Internal APIs)</strong></summary>
     ![5.3 Tree](trees/5.3.png)
-  </details>
-
-  <details>
-    <summary><strong>5.4 Persistence in Lambda Runtime</strong></summary>
-    ![5.4 Tree](trees/5.4.png)
   </details>
 
 </details>
