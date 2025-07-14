@@ -1313,7 +1313,8 @@ Each boundary must be evaluated for:
   <details>
     <summary><strong>1.1 Embedding Poisoning via User Input</strong></summary>
 
-    ![5.1 Tree](trees/5.1.png)
+    <img width="1104" height="655" alt="deep_subtree_1_1_embedding_poisoning" src="https://github.com/user-attachments/assets/2d8a4514-aba0-43a0-b87c-86048d425bbf" />
+
 
   </details>
 
