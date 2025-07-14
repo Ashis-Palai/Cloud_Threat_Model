@@ -1312,20 +1312,20 @@ Each boundary must be evaluated for:
 
   <details>
     <summary><strong>1.1 Embedding Poisoning via User Input</strong></summary>
-
-    <img width="1104" height="655" alt="deep_subtree_1_1_embedding_poisoning" src="https://github.com/user-attachments/assets/2d8a4514-aba0-43a0-b87c-86048d425bbf" />
+    <img width="1053" height="1203" alt="deep_subtree_1_1_embedding_poisoning_expanded" src="https://github.com/user-attachments/assets/535d8a0b-6419-4a78-b841-375801e47f5e" />
 
 
   </details>
 
   <details>
     <summary><strong>1.2 Retrieval Ranking Manipulation</strong></summary>
-    ![5.2 Tree](trees/5.2.png)
+    <img width="1006" height="1020" alt="deep_subtree_1_2_retrieval_ranking" src="https://github.com/user-attachments/assets/fb9f6bba-37d4-4b7f-8ff6-b2f41f55048c" />
+
   </details>
 
   <details>
     <summary><strong>1.3 Prompt Injection via Context Stitching</strong></summary>
-    ![5.3 Tree](trees/5.3.png)
+    <img width="1105" height="1020" alt="deep_subtree_1_3_context_stitching" src="https://github.com/user-attachments/assets/ec6c6017-5f54-4e39-9b8a-5619757a9e82" />
   </details>
 
 
