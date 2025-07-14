@@ -1203,7 +1203,7 @@ We build **attack trees** to model attacker strategies and logic. Each tree incl
 - Token Replay & API Abuse via Gateway  
 - Vector Index Poisoning in OpenSearch  
 - LLM Response Spoofing in Transit  
-- Over-permissioned Lambda ➝ Privilege Escalation  
+- Over-permissioned Lambda ➝ Insecure Operation 
 
 These scenarios represent real-world risk in modern cloud-native and AI-driven environments.
 
@@ -1505,7 +1505,7 @@ Each boundary must be evaluated for:
 
 ---
 <details>
-  <summary><strong>5. OVER-PERMISSIONED LAMBDA LEADING TO PRIVILEGE ESCALATION</strong></summary>
+  <summary><strong>5. OVER-PERMISSIONED LAMBDA ENABLING INSECURE OPERATIONS</strong></summary>
 
   ![5 Tree](trees/5.png)
 
