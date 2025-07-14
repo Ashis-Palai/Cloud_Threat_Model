@@ -1518,12 +1518,14 @@ Each boundary must be evaluated for:
 
   <details>
     <summary><strong>5.2 DynamoDB Unauthorized Access</strong></summary>
-    ![5.2 Tree](trees/5.2.png)
+    <img width="1362" height="655" alt="compact_subtree_5_2_dynamodb_access" src="https://github.com/user-attachments/assets/3199b19a-70a6-426a-a6aa-6ffefb3b3201" />
+
   </details>
 
   <details>
     <summary><strong>5.3 Invoke Bedrock with Malicious Prompt</strong></summary>
-    ![5.3 Tree](trees/5.3.png)
+    <img width="1429" height="655" alt="compact_subtree_5_3_bedrock_malicious_prompt" src="https://github.com/user-attachments/assets/c4550948-b48a-461f-ad67-07c8b02a4c9c" />
+
   </details>
 
   <details>
