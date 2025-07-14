@@ -1510,7 +1510,9 @@ Each boundary must be evaluated for:
 
   <details>
     <summary><strong>5.1 Privilege Escalation</strong></summary>
-    <img width="1608" height="2077" alt="rag_attack_subtree_privilege_escalation" src="https://github.com/user-attachments/assets/1d593e52-a912-4bae-ad5e-739824e4c6de" />
+    <img width="317" height="973" alt="compact_subtree_5_1_1_only" src="https://github.com/user-attachments/assets/d5a1fd7c-7a77-40c9-9077-b142a736a4da" />
+
+
       
   </details>
 
