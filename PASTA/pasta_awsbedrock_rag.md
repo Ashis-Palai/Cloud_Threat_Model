@@ -1307,49 +1307,26 @@ Each boundary must be evaluated for:
 <details>
   <summary><strong>1. PROMPT INJECTION VIA RAG CONTEXT POLLUTION</strong></summary>
 
-  ![5 Tree](trees/5.png)
+  <img width="1205" height="289" alt="compact_subtree_1_prompt_injection" src="https://github.com/user-attachments/assets/8e577c6b-5120-4afb-86af-336ff00aa029" />
+
 
   <details>
-    <summary><strong>5.1 IAM Role Misuse</strong></summary>
+    <summary><strong>1.1 Embedding Poisoning via User Input</strong></summary>
 
     ![5.1 Tree](trees/5.1.png)
-
-    <details>
-      <summary><strong>5.1.1 Exploit SSRF to query metadata endpoint</strong></summary>
-      ![5.1.1 Tree](trees/5.1.1.png)
-    </details>
-
-    <details>
-      <summary><strong>5.1.2 Inject malicious command via user input</strong></summary>
-      ![5.1.2 Tree](trees/5.1.2.png)
-    </details>
-
-    <details>
-      <summary><strong>5.1.3 CI/CD misconfiguration exposes Lambda role</strong></summary>
-      ![5.1.3 Tree](trees/5.1.3.png)
-    </details>
-
-    <details>
-      <summary><strong>5.1.4 Lambda assumes cross-account role without trust boundary</strong></summary>
-      ![5.1.4 Tree](trees/5.1.4.png)
-    </details>
 
   </details>
 
   <details>
-    <summary><strong>5.2 DynamoDB Unauthorized Access</strong></summary>
+    <summary><strong>1.2 Retrieval Ranking Manipulation</strong></summary>
     ![5.2 Tree](trees/5.2.png)
   </details>
 
   <details>
-    <summary><strong>5.3 Invoke Bedrock with Malicious Prompt</strong></summary>
+    <summary><strong>1.3 Prompt Injection via Context Stitching</strong></summary>
     ![5.3 Tree](trees/5.3.png)
   </details>
 
-  <details>
-    <summary><strong>5.4 Persistence in Lambda Runtime</strong></summary>
-    ![5.4 Tree](trees/5.4.png)
-  </details>
 
 </details>
 
@@ -1530,7 +1507,7 @@ Each boundary must be evaluated for:
 
   <details>
     <summary><strong>5.4 Persistence in Lambda Runtime</strong></summary>
-    ![5.4 Tree](trees/5.4.png)
+    <img width="1101" height="655" alt="compact_subtree_5_4_lambda_persistence" src="https://github.com/user-attachments/assets/45bca27d-b941-46fb-a0c6-362a593bb7e4" />
   </details>
 
 </details>
