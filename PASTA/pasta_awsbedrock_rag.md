@@ -1335,7 +1335,8 @@ Each boundary must be evaluated for:
 <details>
   <summary><strong>2. TOKEN REPLAY AND API ABUSE VIA GATEWAY</strong></summary>
 
-  <img width="1145" height="289" alt="subtree_2_token_replay_gateway_abuse" src="https://github.com/user-attachments/assets/152492e8-3b35-4d54-b8e8-f2129dfe21ca" />
+  <img width="783" height="289" alt="subtree_2_token_replay_gateway_abuse (1)" src="https://github.com/user-attachments/assets/32c48be5-0783-4160-8fcb-3a74ee0a83f8" />
+
 
 
   <details>
@@ -1349,11 +1350,6 @@ Each boundary must be evaluated for:
     <summary><strong>2.2 API Gateway Misconfiguration</strong></summary>
     <img width="1546" height="1020" alt="deep_subtree_2_2_api_gateway_misconfig" src="https://github.com/user-attachments/assets/3cee6808-02e4-4158-be00-59a737de758b" />
 
-  </details>
-
-  <details>
-    <summary><strong>2.3 Token-Based Function Abuse (LLM or Internal APIs)</strong></summary>
-    ![5.3 Tree](trees/5.3.png)
   </details>
 
 </details>
