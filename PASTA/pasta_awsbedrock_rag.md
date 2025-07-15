@@ -1376,59 +1376,22 @@ Each boundary must be evaluated for:
 
   </details>
 
-  <details>
-    <summary><strong>5.4 Persistence in Lambda Runtime</strong></summary>
-    ![5.4 Tree](trees/5.4.png)
-  </details>
-
 </details>
 
 ---
 <details>
   <summary><strong>4. LLM RESPONSE SPOOFING IN TRANSIT</strong></summary>
-
-  ![5 Tree](trees/5.png)
+  <img width="1378" height="336" alt="main_category_4_llm_response_spoofing" src="https://github.com/user-attachments/assets/143627e0-0351-4ad8-9fb4-81d2c34a86f0" />
 
   <details>
-    <summary><strong>5.1 IAM Role Misuse</strong></summary>
-
-    ![5.1 Tree](trees/5.1.png)
-
-    <details>
-      <summary><strong>5.1.1 Exploit SSRF to query metadata endpoint</strong></summary>
-      ![5.1.1 Tree](trees/5.1.1.png)
-    </details>
-
-    <details>
-      <summary><strong>5.1.2 Inject malicious command via user input</strong></summary>
-      ![5.1.2 Tree](trees/5.1.2.png)
-    </details>
-
-    <details>
-      <summary><strong>5.1.3 CI/CD misconfiguration exposes Lambda role</strong></summary>
-      ![5.1.3 Tree](trees/5.1.3.png)
-    </details>
-
-    <details>
-      <summary><strong>5.1.4 Lambda assumes cross-account role without trust boundary</strong></summary>
-      ![5.1.4 Tree](trees/5.1.4.png)
-    </details>
+    <summary><strong>4.1 TLS Downgrade or Misconfiguration Attack</strong></summary>
+    <img width="925" height="1020" alt="deep_subtree_4_1_tls_downgrade" src="https://github.com/user-attachments/assets/c9666edc-4ba5-484f-a6c8-439e7ca9b2b2" />
 
   </details>
 
   <details>
-    <summary><strong>5.2 DynamoDB Unauthorized Access</strong></summary>
-    ![5.2 Tree](trees/5.2.png)
-  </details>
-
-  <details>
-    <summary><strong>5.3 Invoke Bedrock with Malicious Prompt</strong></summary>
-    ![5.3 Tree](trees/5.3.png)
-  </details>
-
-  <details>
-    <summary><strong>5.4 Persistence in Lambda Runtime</strong></summary>
-    ![5.4 Tree](trees/5.4.png)
+    <summary><strong>4.2 Client-Side Spoofing via Web Interception</strong></summary>
+    <img width="1318" height="1020" alt="deep_subtree_4_2_client_side_spoofing" src="https://github.com/user-attachments/assets/30c9960f-f188-4613-8673-bc57398f5f92" />
   </details>
 
 </details>
