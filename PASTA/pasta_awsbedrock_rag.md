@@ -228,8 +228,7 @@ This stage focuses on evaluating the threat landscape by blending system knowled
 - Assign probabilistic scores to threats based on risk impact and exploitability.
 
 ---
-
-### ⚠️ Threat Scenario: Prompt Injection via RAG Context Pollution
+### ⚠️ Threat Scenario-1: Prompt Injection via RAG Context Pollution
 
 **Threat Title:**  
 `Prompt Injection via RAG Context Pollution`
@@ -250,27 +249,9 @@ An attacker manipulates the chatbot's context by injecting malicious content thr
 - AWS Bedrock Claude 3 (LLM inference)  
 - Lambda (prompt orchestration)
 
-**Threat Intelligence Mappings:**
-- **MITRE ATT&CK:** `T1565.001 – Data Manipulation (Stored Data)`
-- **OWASP LLM Top 10:**  
-  - `LLM01 – Prompt Injection`  
-  - `LLM10 – Training Data Poisoning`
-
-
-**Countermeasures:**  
-- Validate and sanitize documents before ingestion into S3  
-- Define clear context boundaries in prompt templates  
-- Apply Bedrock Guardrails or Anthropic Constitutional AI constraints  
-- Tag embeddings with provenance metadata and filter untrusted sources  
-- Monitor OpenSearch for anomalous query patterns  
-- Apply LLM static/dynamic scanning (e.g., OpenLLM-Guard, Rebuff)
-
 ---
 
-
----
-
-### ⚠️ Threat Scenario: Token Replay and API Abuse via Gateway
+### ⚠️ Threat Scenario-2: Token Replay and API Abuse via Gateway
 
 **Threat Title:**  
 `Token Replay and API Abuse via Gateway`
@@ -291,30 +272,9 @@ An adversary captures a valid API token or session credential (e.g., via credent
 - DynamoDB (session state)  
 - AWS Bedrock (Claude 3 inference)
 
-**Threat Intelligence Mappings:**
-- **MITRE ATT&CK:**  
-  - [T1078.004 – Valid Accounts: Cloud Accounts](https://attack.mitre.org/techniques/T1078/004/)  
-  - [T1110 – Brute Force](https://attack.mitre.org/techniques/T1110/)
-
-- **OWASP LLM Top 10:**  
-  - [LLM03 – Sensitive Information Disclosure](https://owasp.org/www-project-top-10-for-large-language-model-applications/#llm03-sensitive-information-disclosure)
-
-**Likelihood:** ✅ Applicable
-
-**Countermeasures:**  
-- Use short-lived, signed JWTs with IP/device binding  
-- Apply WAF rules and rate limiting at the API Gateway  
-- Implement anomaly detection for session usage (e.g., volume spikes from unfamiliar IPs)  
-- Encrypt all session data in transit and at rest with strict IAM policies  
-- Integrate AWS Cognito or external IdP with token revocation and session awareness  
-- Use [Lambda Authorizers](https://docs.aws.amazon.com/apigateway/latest/developerguide/apigateway-use-lambda-authorizer.html) to enforce request validation  
-- Monitor with CloudTrail and GuardDuty for token misuse indicators
-
 ---
 
----
-
-### ⚠️ Threat Scenario: Vector Index Poisoning in OpenSearch
+### ⚠️ Threat Scenario-3: Vector Index Poisoning in OpenSearch
 
 **Threat Title:**  
 `Vector Index Poisoning in OpenSearch`
@@ -334,30 +294,9 @@ An adversary injects poisoned embeddings into the OpenSearch vector store. These
 - Amazon S3 (unverified sources)  
 - Lambda (embedding pipeline orchestration)
 
-**Threat Intelligence Mappings:**
-- **MITRE ATT&CK:**  
-  - [T1565.001 – Data Manipulation: Stored Data](https://attack.mitre.org/techniques/T1565/001/)  
-    _Applies directly to manipulation of stored embeddings or vector corruption._
-
-- **OWASP LLM Top 10:**  
-  - [LLM10 – Training Data Poisoning](https://owasp.org/www-project-top-10-for-large-language-model-applications/#llm10-training-data-poisoning)  
-    _In RAG, poisoning embeddings at inference-time is just as harmful as model training-time._
-
-**Likelihood:** ✅ Applicable
-
-**Countermeasures:**  
-- Sanitize all input documents prior to embedding (especially user-submitted sources)  
-- Implement outlier detection using cosine distance or clustering methods  
-- Only accept signed uploads from trusted IAM principals or CI/CD pipelines  
-- Monitor OpenSearch for vector injection anomalies or semantic drift  
-- Restrict write access to vector DB with fine-grained IAM policies  
-- Use ML-based monitoring tools (e.g., [Marqo](https://www.marqo.ai/)) or build custom vector integrity checks
-
 ---
 
----
-
-### ⚠️ Threat Scenario: LLM Response Spoofing in Transit
+### ⚠️ Threat Scenario-4: LLM Response Spoofing in Transit
 
 **Threat Title:**  
 `LLM Response Spoofing in Transit`
@@ -377,32 +316,9 @@ An adversary positioned in a compromised or misconfigured network (e.g., via exp
 - API Gateway (response relay)  
 - Streamlit UI (end-user response rendering)
 
-**Threat Intelligence Mappings:**
-- **MITRE ATT&CK:**  
-  - [T1557 – Man-in-the-Middle](https://attack.mitre.org/techniques/T1557/)  
-    _Covers interception/manipulation of inter-service communication._  
-  - [T1040 – Network Sniffing](https://attack.mitre.org/techniques/T1040/)  
-    _Applies to scenarios where VPC network boundaries are misconfigured._
-
-- **OWASP LLM Top 10:**  
-  - [LLM04 – Model Output Manipulation](https://owasp.org/www-project-top-10-for-large-language-model-applications/#llm04-model-output-manipulation)  
-    _Relevant when outputs from LLMs are tampered with post-generation._
-
-**Likelihood:** ✅ Applicable
-
-**Countermeasures:**  
-- Enforce TLS 1.2+ for all Bedrock-to-Lambda and API Gateway communication  
-- Use signed responses with HMAC or SHA256 checksums to validate response integrity  
-- Invoke Bedrock securely using [AWS PrivateLink](https://docs.aws.amazon.com/bedrock/latest/userguide/network.html) or VPC endpoints  
-- Enable VPC Flow Logs and CloudWatch metrics to monitor for anomalous traffic patterns  
-- Validate response structure and metadata using API Gateway response transformations  
-- Explore LLM output attestation or checksum verification at runtime (experimental but emerging)
-
 ---
 
----
-
-### ⚠️ Threat Scenario: Over-Permissioned Lambda Enabling Insecure Operations
+### ⚠️ Threat Scenario-5: Over-Permissioned Lambda Enabling Insecure Operations
 
 **Threat Title:**  
 `Over-permissioned Lambda Leading to Privilege Escalation`
@@ -422,31 +338,6 @@ The Lambda function orchestrating the RAG workflow often has elevated IAM privil
 - IAM roles attached to Lambda  
 - Amazon S3, DynamoDB, OpenSearch  
 - AWS Bedrock (LLM API)
-
-**Threat Intelligence Mappings:**
-- **MITRE ATT&CK:**  
-  - [T1098 – Account Manipulation](https://attack.mitre.org/techniques/T1098/)  
-    _Covers abuse of overly broad IAM roles or credentials._  
-  - [T1068 – Exploitation for Privilege Escalation](https://attack.mitre.org/techniques/T1068/)  
-    _Applies when Lambda can write or execute in unauthorized services._  
-  - [T1078.004 – Valid Accounts: Cloud Accounts](https://attack.mitre.org/techniques/T1078/004/)  
-    _Pertains to use of compromised roles in cloud-native contexts._
-
-- **OWASP LLM Top 10:**  
-  - [LLM05 – Excessive Agency](https://owasp.org/www-project-top-10-for-large-language-model-applications/#llm05-excessive-agency)  
-    _Relevant when Lambda enables LLMs to influence or invoke downstream system actions._
-
-**Likelihood:** ✅ Applicable
-
-**Countermeasures:**  
-- Apply **least privilege** IAM policies tailored to each Lambda’s function  
-- Use **IAM Access Analyzer** to identify and remediate over-permissive roles  
-- Break down Lambda logic into smaller functions with tightly scoped access  
-- Enable **CloudTrail**, **AWS Config**, and **GuardDuty** for real-time activity monitoring  
-- Use runtime detection tools like [Datadog Serverless Monitoring](https://www.datadoghq.com/blog/serverless-monitoring-lambda/) or [Falco](https://falco.org/)  
-- Periodically audit roles with tools like [Prowler](https://github.com/prowler-cloud/prowler) or AWS Inspector
-
----
 
 ---
 
