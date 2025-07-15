@@ -1357,44 +1357,23 @@ Each boundary must be evaluated for:
 ---
 <details>
   <summary><strong>3. VECTOR INDEX POISONING IN OPENSEARCH</strong></summary>
-
-  ![5 Tree](trees/5.png)
+  <img width="1762" height="336" alt="main_category_3_vector_index_poisoning" src="https://github.com/user-attachments/assets/fced456d-a5b3-4b41-b803-c8f590964df7" />
 
   <details>
-    <summary><strong>5.1 IAM Role Misuse</strong></summary>
+    <summary><strong>3.1 Poisoned Vector Ingestion</strong></summary>
+    <img width="1139" height="1020" alt="deep_subtree_3_1_poisoned_vector_ingestion" src="https://github.com/user-attachments/assets/a71b1c3d-3f66-4834-b5b8-5468e9eacac8" />
+  </details>
 
-    ![5.1 Tree](trees/5.1.png)
-
-    <details>
-      <summary><strong>5.1.1 Exploit SSRF to query metadata endpoint</strong></summary>
-      ![5.1.1 Tree](trees/5.1.1.png)
-    </details>
-
-    <details>
-      <summary><strong>5.1.2 Inject malicious command via user input</strong></summary>
-      ![5.1.2 Tree](trees/5.1.2.png)
-    </details>
-
-    <details>
-      <summary><strong>5.1.3 CI/CD misconfiguration exposes Lambda role</strong></summary>
-      ![5.1.3 Tree](trees/5.1.3.png)
-    </details>
-
-    <details>
-      <summary><strong>5.1.4 Lambda assumes cross-account role without trust boundary</strong></summary>
-      ![5.1.4 Tree](trees/5.1.4.png)
-    </details>
+  <details>
+    <summary><strong>3.2 Vector Manipulation Post-Ingestion</strong></summary>
+    <img width="819" height="1020" alt="deep_subtree_3_2_vector_post_ingestion" src="https://github.com/user-attachments/assets/9dc031ce-ddcf-472f-ab10-91210db56ffb" />
 
   </details>
 
   <details>
-    <summary><strong>5.2 DynamoDB Unauthorized Access</strong></summary>
-    ![5.2 Tree](trees/5.2.png)
-  </details>
+    <summary><strong> 3.3 Retrieval Misrouting & Multi-Tenant Querying</strong></summary>
+    <img width="1027" height="1020" alt="deep_subtree_3_3_retrieval_misrouting" src="https://github.com/user-attachments/assets/56082c97-c54a-4815-bdc1-ea21eabcdac3" />
 
-  <details>
-    <summary><strong>5.3 Invoke Bedrock with Malicious Prompt</strong></summary>
-    ![5.3 Tree](trees/5.3.png)
   </details>
 
   <details>
