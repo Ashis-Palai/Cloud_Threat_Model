@@ -1175,67 +1175,6 @@ Attack modeling provides the **"attacker's perspective"**, turning earlier data 
 - Detailed **exploit paths** with decision logic
 - Foundation for pen testing, mitigation, and risk quantification
 
----
-
-### 🔶 Step 6.1 – Identify the Application Attack Surface
-
-This step identifies **where and how** the system can be attacked, by listing:
-
-- 📍 **Entry Points**: APIs, UIs, integrations, public endpoints  
-- 📍 **Exposed Components**: Cloud services, containers, databases, serverless functions  
-- 📍 **Data Flows and Channels**: Communication between services, across trust zones  
-- 📍 **Trust Boundaries**: Zones of varying control and exposure  
-
-This forms the **scope** of where threats and attack vectors can manifest.
-
----
-
-### 🔶 Step 6.2 – Derive Attack Trees for Threats and Assets
-
-We build **attack trees** to model attacker strategies and logic. Each tree includes:
-
-- **Attacker goals** (e.g., privilege escalation, data theft)
-- **Sequence of actions** that could lead to successful compromise
-
-#### ✳️ Sample Attack Scenarios Modeled:
-
-- Prompt Injection via RAG Context Pollution  
-- Token Replay & API Abuse via Gateway  
-- Vector Index Poisoning in OpenSearch  
-- LLM Response Spoofing in Transit  
-- Over-permissioned Lambda ➝ Insecure Operation 
-
-These scenarios represent real-world risk in modern cloud-native and AI-driven environments.
-
----
-
-### 🔶 Step 6.3 – Map Attack Vectors to Attack Tree Nodes
-
-Each node in the attack tree is enriched with **real-world attack vectors**, such as:
-
-- 🧰 **Credential Abuse** (e.g., token replay, hardcoded secrets)  
-- 🧰 **Injection Techniques** (e.g., prompt injection, payload manipulation)  
-- 🧰 **Infrastructure Attacks** (e.g., OpenSearch poisoning, SSRF)  
-- 🧰 **Cloud Misconfigurations** (e.g., over-permissioned roles)  
-- 🧰 **API Abuse** (e.g., rate bypass, schema fuzzing)  
-
-Sources like **MITRE ATT&CK** and **MITRE Cloud Matrix**  are referenced to ensure relevance.
-
----
-
-### 🔶 Step 6.4 – Identify Exploits and Attack Paths
-
-Finally, we identify **complete exploit chains** and how they traverse the system, including:
-
-- Entry → Lateral Movement → Privilege Escalation → Impact  
-- Chain of events mapped from **initial vector** to **final asset compromise**
-- Multiple attacker paths per scenario, including alternate or fallback methods
-
-These paths become the basis for:
-
-- Penetration Testing playbooks  
-- Risk scoring (Likelihood × Impact)  
-- Control design and mitigation planning  
 
 ---
 
@@ -1281,27 +1220,16 @@ The system consists of multiple **trust boundaries** that determine exposure:
 - **Service interaction boundary**: Lambda’s communication with AWS services (Bedrock, OpenSearch, DynamoDB)
 - **Cloud infrastructure boundary**: IAM roles, STS trust, and monitoring controls
 
-Each boundary must be evaluated for:
-
-- Input validation enforcement  
-- Authentication and session control  
-- Least-privilege IAM policies  
-- Logging and auditability  
-
 ---
 
-#### ⚠️ Initial Observations / Risk Areas
+### 🔶 Step 6.2 – Derive Attack Trees for Threats and Assets
 
-- **User Input via ECS**: Unstructured prompts submitted by users represent a high-risk surface for prompt injection or malicious payloads.
-- **Lambda IAM Role**: Over-permissioned role makes Lambda a pivot point for lateral movement across services.
-- **OpenSearch Vector Index**: Accepts embedded inputs indirectly; lacks direct exposure but still at risk if access control fails.
-- **Logging Gaps**: CloudWatch visibility limited to admin users; potential blind spots in API interactions or prompt misuse.
-- **Internal APIs (Gateway → Lambda)**: Though internal, they are susceptible to abuse if request tokens or headers can be replayed or spoofed from within.
+We build **attack trees** to model attacker strategies and logic. Each tree includes:
 
----
+- **Attacker goals** (e.g., privilege escalation, data theft)
+- **Sequence of actions** that could lead to successful compromise
 
 ![rag_attack_tree_large_spacing](https://github.com/user-attachments/assets/2bc562e8-009a-4ccb-95f0-b8673afb7a62)
-
 
 ---
 <details>
@@ -1428,5 +1356,34 @@ Each boundary must be evaluated for:
 
 </details>
 
+---
+
+### 🔶 Step 6.3 – Map Attack Vectors to Attack Tree Nodes
+
+Each node in the attack tree is enriched with **real-world attack vectors**, such as:
+
+- 🧰 **Credential Abuse** (e.g., token replay, hardcoded secrets)  
+- 🧰 **Injection Techniques** (e.g., prompt injection, payload manipulation)  
+- 🧰 **Infrastructure Attacks** (e.g., OpenSearch poisoning, SSRF)  
+- 🧰 **Cloud Misconfigurations** (e.g., over-permissioned roles)  
+- 🧰 **API Abuse** (e.g., rate bypass, schema fuzzing)  
+
+Sources like **MITRE ATT&CK** and **MITRE Cloud Matrix**  are referenced to ensure relevance.
+
+---
+
+### 🔶 Step 6.4 – Identify Exploits and Attack Paths
+
+Finally, we identify **complete exploit chains** and how they traverse the system, including:
+
+- Entry → Lateral Movement → Privilege Escalation → Impact  
+- Chain of events mapped from **initial vector** to **final asset compromise**
+- Multiple attacker paths per scenario, including alternate or fallback methods
+
+These paths become the basis for:
+
+- Penetration Testing playbooks  
+- Risk scoring (Likelihood × Impact)  
+- Control design and mitigation planning  
 
 
