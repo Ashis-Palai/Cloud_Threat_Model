@@ -228,30 +228,8 @@ This stage focuses on evaluating the threat landscape by blending system knowled
 - Assign probabilistic scores to threats based on risk impact and exploitability.
 
 ---
-### ⚠️ Threat Scenario-1: Prompt Injection via RAG Context Pollution
 
-**Threat Title:**  
-`Prompt Injection via RAG Context Pollution`
-
-**Description:**  
-An attacker manipulates the chatbot's context by injecting malicious content through uploaded documents (e.g., S3) or user inputs. These manipulated inputs influence the prompt construction pipeline, potentially causing the LLM to hallucinate, leak data, or impersonate business logic. Because the RAG context is dynamically enriched from OpenSearch and S3, this forms an unmonitored threat surface.
-
-**Potential Impact:**  
-- Hallucination of facts and system behaviors  
-- Leakage of sensitive data or internal policies  
-- Unauthorized financial or transactional actions  
-- Loss of trust in AI-driven outputs
-
-**Affected Components:**  
-- Amazon S3 (source documents)  
-- Titan Embeddings (vector conversion)  
-- OpenSearch (context retrieval)  
-- AWS Bedrock Claude 3 (LLM inference)  
-- Lambda (prompt orchestration)
-
----
-
-### ⚠️ Threat Scenario-2: Token Replay and API Abuse via Gateway
+### ⚠️ Threat Scenario: Token Replay and API Abuse via Gateway
 
 **Threat Title:**  
 `Token Replay and API Abuse via Gateway`
@@ -274,29 +252,7 @@ An adversary captures a valid API token or session credential (e.g., via credent
 
 ---
 
-### ⚠️ Threat Scenario-3: Vector Index Poisoning in OpenSearch
-
-**Threat Title:**  
-`Vector Index Poisoning in OpenSearch`
-
-**Description:**  
-An adversary injects poisoned embeddings into the OpenSearch vector store. These embeddings are crafted to appear semantically relevant but are designed to return attacker-controlled content during similarity search. If the document ingestion process (e.g., from S3 to Titan to OpenSearch) lacks validation, a poisoned input can degrade the trustworthiness of the chatbot’s context. This enables attacker-influenced misinformation or hallucination from the LLM, misguiding users in critical decision-making.
-
-**Potential Impact:**  
-- LLM hallucination and trust degradation  
-- Targeted misinformation dissemination  
-- Corruption of business logic or decision workflows  
-- Brand damage or loss of credibility due to misleading responses
-
-**Affected Components:**  
-- OpenSearch (vector database)  
-- Titan Embeddings  
-- Amazon S3 (unverified sources)  
-- Lambda (embedding pipeline orchestration)
-
----
-
-### ⚠️ Threat Scenario-4: LLM Response Spoofing in Transit
+### ⚠️ Threat Scenario: LLM Response Spoofing in Transit
 
 **Threat Title:**  
 `LLM Response Spoofing in Transit`
@@ -318,7 +274,7 @@ An adversary positioned in a compromised or misconfigured network (e.g., via exp
 
 ---
 
-### ⚠️ Threat Scenario-5: Over-Permissioned Lambda Enabling Insecure Operations
+### ⚠️ Threat Scenario: Over-Permissioned Lambda Enabling Insecure Operations
 
 **Threat Title:**  
 `Over-permissioned Lambda Leading to Privilege Escalation`
@@ -568,11 +524,11 @@ We build **attack trees** to model attacker strategies and logic. Each tree incl
 - **Attacker goals** (e.g., privilege escalation, data theft)
 - **Sequence of actions** that could lead to successful compromise
 
-![rag_attack_tree_large_spacing](https://github.com/user-attachments/assets/2bc562e8-009a-4ccb-95f0-b8673afb7a62)
+<img width="3908" height="1452" alt="root_node" src="https://github.com/user-attachments/assets/06787bbc-b60f-4561-a505-0086a11ea613" />
 
 ---
 <details>
-  <summary><strong>1. PROMPT INJECTION VIA RAG CONTEXT POLLUTION</strong></summary>
+  <summary><strong>1.TOKEN REPLAY AND API ABUSE VIA GATEWAY</strong></summary>
 
   <img width="1205" height="289" alt="compact_subtree_1_prompt_injection" src="https://github.com/user-attachments/assets/8e577c6b-5120-4afb-86af-336ff00aa029" />
 
@@ -600,30 +556,35 @@ We build **attack trees** to model attacker strategies and logic. Each tree incl
 
 ---
 <details>
-  <summary><strong>2. TOKEN REPLAY AND API ABUSE VIA GATEWAY</strong></summary>
-
-  <img width="783" height="289" alt="subtree_2_token_replay_gateway_abuse (1)" src="https://github.com/user-attachments/assets/32c48be5-0783-4160-8fcb-3a74ee0a83f8" />
+  <summary><strong>2.LLM RESPONSE SPOOFING IN TRANSIT</strong></summary>
+  <img width="1741" height="337" alt="4 0_LLM_RESPONSE_SPOOFING" src="https://github.com/user-attachments/assets/478d9c66-82ba-49e0-b0b3-0ddd53fb4a67" />
 
 
 
   <details>
-    <summary><strong>2.1 Token Replay via Frontend or Intercept</strong></summary>
-    <img width="1233" height="1203" alt="deep_subtree_2_1_token_replay" src="https://github.com/user-attachments/assets/f326a94e-383f-4423-930b-ea87ba1a0e55" />
+    <summary><strong>2.1  API Gateway Transport Layer Exploitation</strong></summary>
+   <img width="1269" height="2775" alt="4 1 1_api_gateway_tls_attack_path" src="https://github.com/user-attachments/assets/16282daf-b808-457a-9686-701075b9958a" />
+
 
 
   </details>
 
   <details>
-    <summary><strong>2.2 API Gateway Misconfiguration</strong></summary>
-    <img width="1546" height="1020" alt="deep_subtree_2_2_api_gateway_misconfig" src="https://github.com/user-attachments/assets/3cee6808-02e4-4158-be00-59a737de758b" />
+    <summary><strong>2.2 Lambda Response Manipulation</strong></summary>
+    <img width="1322" height="1816" alt="4 2 1_lambda_attack_path" src="https://github.com/user-attachments/assets/1259fb37-a631-49b2-86f6-3a551e235581" />
 
+  </details>
+
+   <details>
+    <summary><strong>2.3 ECS (UI) Based Client-Side Spoofing</strong></summary>
+    <img width="1127" height="868" alt="4 3 1_ECS_frontend_response_spoof" src="https://github.com/user-attachments/assets/bf714269-0067-4ae5-856d-a6beb0f10e4f" />
   </details>
 
 </details>
 
 ---
 <details>
-  <summary><strong>3. VECTOR INDEX POISONING IN OPENSEARCH</strong></summary>
+  <summary><strong>3.OVER-PERMISSIONED LAMBDA ENABLING INSECURE OPERATIONS</strong></summary>
   <img width="1762" height="336" alt="main_category_3_vector_index_poisoning" src="https://github.com/user-attachments/assets/fced456d-a5b3-4b41-b803-c8f590964df7" />
 
   <details>
@@ -646,65 +607,7 @@ We build **attack trees** to model attacker strategies and logic. Each tree incl
 </details>
 
 ---
-<details>
-  <summary><strong>4. LLM RESPONSE SPOOFING IN TRANSIT</strong></summary>
-  <img width="1741" height="337" alt="4 0_LLM_RESPONSE_SPOOFING" src="https://github.com/user-attachments/assets/bf6cb49a-d053-4424-9e7a-afde0536ffb0" />
 
-
-  <details>
-    <summary><strong>4.1  API Gateway Transport Layer Exploitation</strong></summary>
-    <img width="1269" height="2775" alt="4 1 1_api_gateway_tls_attack_path" src="https://github.com/user-attachments/assets/22eb27f9-9fbb-4b4a-a5bd-f49df34fca2d" />
-
-
-  </details>
-
-  <details>
-    <summary><strong>4.2 Lambda Response Manipulation</strong></summary>
-    <img width="1322" height="1816" alt="4 2 1_lambda_attack_path" src="https://github.com/user-attachments/assets/69d9f128-044d-48f3-a494-01cd022fb7a3" />
-
-  </details>
-
-   <details>
-    <summary><strong>4.3 ECS (UI) Based Client-Side Spoofing</strong></summary>
-    <img width="1127" height="868" alt="4 3 1_ECS_frontend_response_spoof" src="https://github.com/user-attachments/assets/69d48985-1fc0-4708-a90a-0fcb4ac1b988" />
-
-  </details>
-
-</details>
-
----
-<details>
-  <summary><strong>5. OVER-PERMISSIONED LAMBDA ENABLING INSECURE OPERATIONS</strong></summary>
-  <img width="3041" height="1068" alt="rag_attack_subtree_lambda_overpermissioned" src="https://github.com/user-attachments/assets/a0a71d78-7fef-4e12-9265-0c4040b7cba4" />
-
-  <details>
-    <summary><strong>5.1 Privilege Escalation</strong></summary>
-    <img width="317" height="973" alt="compact_subtree_5_1_1_only" src="https://github.com/user-attachments/assets/d5a1fd7c-7a77-40c9-9077-b142a736a4da" />
-
-
-      
-  </details>
-
-  <details>
-    <summary><strong>5.2 DynamoDB Unauthorized Access</strong></summary>
-    <img width="1362" height="655" alt="compact_subtree_5_2_dynamodb_access" src="https://github.com/user-attachments/assets/3199b19a-70a6-426a-a6aa-6ffefb3b3201" />
-
-  </details>
-
-  <details>
-    <summary><strong>5.3 Invoke Bedrock with Malicious Prompt</strong></summary>
-    <img width="1429" height="655" alt="compact_subtree_5_3_bedrock_malicious_prompt" src="https://github.com/user-attachments/assets/c4550948-b48a-461f-ad67-07c8b02a4c9c" />
-
-  </details>
-
-  <details>
-    <summary><strong>5.4 Persistence in Lambda Runtime</strong></summary>
-    <img width="1101" height="655" alt="compact_subtree_5_4_lambda_persistence" src="https://github.com/user-attachments/assets/45bca27d-b941-46fb-a0c6-362a593bb7e4" />
-  </details>
-
-</details>
-
----
 
 ### 🔶 Step 6.3 – Map Attack Vectors to Attack Tree Nodes
 
