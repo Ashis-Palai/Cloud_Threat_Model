@@ -648,17 +648,26 @@ We build **attack trees** to model attacker strategies and logic. Each tree incl
 ---
 <details>
   <summary><strong>4. LLM RESPONSE SPOOFING IN TRANSIT</strong></summary>
-  <img width="1378" height="336" alt="main_category_4_llm_response_spoofing" src="https://github.com/user-attachments/assets/143627e0-0351-4ad8-9fb4-81d2c34a86f0" />
+  <img width="1741" height="337" alt="4 0_LLM_RESPONSE_SPOOFING" src="https://github.com/user-attachments/assets/bf6cb49a-d053-4424-9e7a-afde0536ffb0" />
+
 
   <details>
-    <summary><strong>4.1 TLS Downgrade or Misconfiguration Attack</strong></summary>
-    <img width="925" height="1020" alt="deep_subtree_4_1_tls_downgrade" src="https://github.com/user-attachments/assets/c9666edc-4ba5-484f-a6c8-439e7ca9b2b2" />
+    <summary><strong>4.1  API Gateway Transport Layer Exploitation</strong></summary>
+    <img width="1269" height="2775" alt="4 1 1_api_gateway_tls_attack_path" src="https://github.com/user-attachments/assets/22eb27f9-9fbb-4b4a-a5bd-f49df34fca2d" />
+
 
   </details>
 
   <details>
-    <summary><strong>4.2 Client-Side Spoofing via Web Interception</strong></summary>
-    <img width="1318" height="1020" alt="deep_subtree_4_2_client_side_spoofing" src="https://github.com/user-attachments/assets/30c9960f-f188-4613-8673-bc57398f5f92" />
+    <summary><strong>4.2 Lambda Response Manipulation</strong></summary>
+    <img width="1322" height="1816" alt="4 2 1_lambda_attack_path" src="https://github.com/user-attachments/assets/69d9f128-044d-48f3-a494-01cd022fb7a3" />
+
+  </details>
+
+   <details>
+    <summary><strong>4.3 ECS (UI) Based Client-Side Spoofing</strong></summary>
+    <img width="1127" height="868" alt="4 3 1_ECS_frontend_response_spoof" src="https://github.com/user-attachments/assets/69d48985-1fc0-4708-a90a-0fcb4ac1b988" />
+
   </details>
 
 </details>
