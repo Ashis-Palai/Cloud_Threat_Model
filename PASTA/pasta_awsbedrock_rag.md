@@ -563,7 +563,8 @@ We build **attack trees** to model attacker strategies and logic. Each tree incl
 
   <details>
     <summary><strong>2.1  API Gateway Transport Layer Exploitation</strong></summary>
-   <img width="1269" height="2775" alt="4 1 1_api_gateway_tls_attack_path" src="https://github.com/user-attachments/assets/16282daf-b808-457a-9686-701075b9958a" />
+   <img width="3441" height="2659" alt="2 1_APIGW-ECS-UI" src="https://github.com/user-attachments/assets/211e569c-103d-4c0c-8cb2-b9d1e0d70577" />
+
 
 
 
