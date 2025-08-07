@@ -556,13 +556,14 @@ We build **attack trees** to model attacker strategies and logic. Each tree incl
 
 ---
 <details>
-  <summary><strong>2.LLM RESPONSE SPOOFING IN TRANSIT</strong></summary>
-  <img width="1741" height="337" alt="4 0_LLM_RESPONSE_SPOOFING" src="https://github.com/user-attachments/assets/478d9c66-82ba-49e0-b0b3-0ddd53fb4a67" />
+  <summary><strong>2.LLM RESPONSE SPOOFING </strong></summary>
+  <img width="1168" height="337" alt="4 0_LLM_RESPONSE_SPOOFING" src="https://github.com/user-attachments/assets/061ffbe8-88bb-4530-a99f-e6cf6cf46899" />
+
 
 
 
   <details>
-    <summary><strong>2.1  API Gateway Transport Layer Exploitation</strong></summary>
+    <summary><strong>2.1: API Gateway → ECS → UI</strong></summary>
    <img width="3441" height="2659" alt="2 1_APIGW-ECS-UI" src="https://github.com/user-attachments/assets/211e569c-103d-4c0c-8cb2-b9d1e0d70577" />
 
 
@@ -571,15 +572,13 @@ We build **attack trees** to model attacker strategies and logic. Each tree incl
   </details>
 
   <details>
-    <summary><strong>2.2 Lambda Response Manipulation</strong></summary>
-    <img width="1322" height="1816" alt="4 2 1_lambda_attack_path" src="https://github.com/user-attachments/assets/1259fb37-a631-49b2-86f6-3a551e235581" />
+    <summary><strong>2.2: LLM(BedRock) → LAMBDA → API Gateway</strong></summary>
+    <img width="2792" height="1974" alt="2 2-APIGW-LAMBDA-LLM" src="https://github.com/user-attachments/assets/ee398a4e-0bb3-4a66-9fb0-8e501f71a7c1" />
+
 
   </details>
 
-   <details>
-    <summary><strong>2.3 ECS (UI) Based Client-Side Spoofing</strong></summary>
-    <img width="1127" height="868" alt="4 3 1_ECS_frontend_response_spoof" src="https://github.com/user-attachments/assets/bf714269-0067-4ae5-856d-a6beb0f10e4f" />
-  </details>
+
 
 </details>
 
