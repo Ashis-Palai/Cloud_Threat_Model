@@ -524,7 +524,8 @@ We build **attack trees** to model attacker strategies and logic. Each tree incl
 - **Attacker goals** (e.g., privilege escalation, data theft)
 - **Sequence of actions** that could lead to successful compromise
 
-<img width="3908" height="1452" alt="root_node" src="https://github.com/user-attachments/assets/06787bbc-b60f-4561-a505-0086a11ea613" />
+<img width="3698" height="1452" alt="root_node" src="https://github.com/user-attachments/assets/939a2487-fab8-4b6d-ba40-bdd212d7d8d0" />
+
 
 ---
 <details>
